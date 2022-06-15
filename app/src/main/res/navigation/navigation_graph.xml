@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/fragmentSignIn">
+    <fragment
+        android:id="@+id/fragmentSignIn"
+        android:name="filipkupanovac.pokedex_firered.pokedex.ui.userAuth.FragmentSignIn"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_fragmentSignIn_to_fragmentRegister"
+            app:destination="@id/fragmentRegister"
+            app:popUpTo="@id/fragmentSignIn"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_fragmentSignIn_to_pokedexMainHolder"
+            app:destination="@id/fragmentMainHolder"
+            app:popUpTo="@id/fragmentSignIn"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentRegister"
+        android:name="filipkupanovac.pokedex_firered.pokedex.ui.userAuth.FragmentRegister"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_fragmentRegister_to_fragmentSignIn"
+            app:destination="@id/fragmentSignIn"
+            app:popUpTo="@id/fragmentRegister"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_fragmentRegister_to_pokedexMainHolder"
+            app:destination="@id/fragmentMainHolder"
+            app:popUpTo="@id/fragmentRegister"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentMainHolder"
+        android:name="filipkupanovac.pokedex_firered.pokedex.ui.pokedexMainHolder.FragmentMainHolder"
+        android:label="fragment_main_holder"
+        tools:layout="@layout/fragment_main_holder" />
+</navigation>

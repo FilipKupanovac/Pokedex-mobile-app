@@ -1,3 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="TextViewToEditTextMargin">15dp</dimen>
+    <dimen name="registrationInputsWidth">250dp</dimen>
+    <dimen name="registrationInputsHeight">50dp</dimen>
+    <dimen name="fragmentTitleTextSize">30sp</dimen>
+    <dimen name="buttonTopMargin">25dp</dimen>
+    <dimen name="pagerTabStripPaddingTop">4dp</dimen>
 </resources>
