@@ -12,7 +12,7 @@ import filipkupanovac.pokedex_firered.pokedex.databinding.FragmentSignInBinding
 class FragmentSignIn : Fragment() {
 
     lateinit var binding : FragmentSignInBinding
-    //private val isUserSignedIn = true;
+    private val isUserSignedIn = true
 
     override fun onCreateView(
         inflater: LayoutInflater,

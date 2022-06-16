@@ -12,4 +12,8 @@
     <string name="navigate_to_register">New trainer? Register</string>
     <string name="pokedexFragmentPlaceholder">Tu će ići pokedex recycler view</string>
     <string name="favoritesFragmentPlaceholder">Ovdje će ići Favoriti RecyclerView</string>
+    <string name="username_placeholder">USERNAME</string>
+    <string name="delete_profile"><u>Delete profile</u></string>
+    <string name="log_out">Log out</string>
+    <string name="profile_info_label">Profile info</string>
 </resources>

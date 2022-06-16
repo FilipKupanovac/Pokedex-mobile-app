@@ -6,16 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.viewpager.widget.PagerTabStrip
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
 import filipkupanovac.pokedex_firered.pokedex.databinding.FragmentMainHolderBinding
 
 class FragmentMainHolder : Fragment() {
 
     private lateinit var binding: FragmentMainHolderBinding
-    lateinit var vPager : ViewPager
+    private lateinit var vPager : ViewPager
+    private lateinit var tabLayout : TabLayout
     private lateinit var activityContext: Context
+
+    private val args: FragmentMainHolderArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,18 +30,29 @@ class FragmentMainHolder : Fragment() {
 
         activityContext = activity?.applicationContext!!
 
-        SetupViewPager()
+        setupViewPager()
+        setupClickables()
 
         return binding.root
     }
 
-    private fun SetupViewPager() {
+    private fun setupClickables() {
+        binding.usernamePlaceholderMainHolderFragment.setOnClickListener {
+            val action = FragmentMainHolderDirections.actionFragmentMainHolderToFragmentProfileInfo(
+                vPager.currentItem.toLong()
+            )
+            findNavController().navigate(action)
+        }
+    }
+
+    private fun setupViewPager() {
         val mainHolderFragmentAdapter =
             activity?.supportFragmentManager?.let { MainHolderFragmentAdapter(activityContext, it) }
-        val tabLayout = binding.tabLayout
+        tabLayout = binding.tabLayout
         vPager = binding.viewPager
         vPager.adapter = mainHolderFragmentAdapter
         tabLayout.setupWithViewPager(vPager)
-        vPager.setCurrentItem(1,true)
+        vPager.setCurrentItem(args.viewPagerDisplayPage.toInt(),true)
     }
+
 }

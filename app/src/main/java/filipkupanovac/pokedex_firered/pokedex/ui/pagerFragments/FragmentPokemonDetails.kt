@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import filipkupanovac.pokedex_firered.pokedex.databinding.FragmentPokemonDetailsBinding
+import filipkupanovac.pokedex_firered.pokedex.ui.pokedexMainHolder.FragmentMainHolderDirections
 
 class FragmentPokemonDetails : Fragment() {
 

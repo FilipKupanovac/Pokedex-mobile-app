@@ -9,22 +9,18 @@ import filipkupanovac.pokedex_firered.pokedex.databinding.FragmentPokedexBinding
 
 class FragmentPokedex : Fragment() {
 
-    private lateinit var binding : FragmentPokedexBinding
+    private var _binding : FragmentPokedexBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentPokedexBinding.inflate(
+        _binding = FragmentPokedexBinding.inflate(
             inflater, container, false
         )
 
         return binding.root
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //user specific code
     }
 }
