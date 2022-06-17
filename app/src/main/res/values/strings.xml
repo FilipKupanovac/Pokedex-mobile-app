@@ -16,4 +16,5 @@
     <string name="delete_profile"><u>Delete profile</u></string>
     <string name="log_out">Log out</string>
     <string name="profile_info_label">Profile info</string>
+    <string name="search_hint">type in to search pokemon</string>
 </resources>

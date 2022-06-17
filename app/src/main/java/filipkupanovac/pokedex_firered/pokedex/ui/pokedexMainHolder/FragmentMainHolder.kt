@@ -15,8 +15,8 @@ import filipkupanovac.pokedex_firered.pokedex.databinding.FragmentMainHolderBind
 class FragmentMainHolder : Fragment() {
 
     private lateinit var binding: FragmentMainHolderBinding
-    private lateinit var vPager : ViewPager
-    private lateinit var tabLayout : TabLayout
+    private lateinit var vPager: ViewPager
+    private lateinit var tabLayout: TabLayout
     private lateinit var activityContext: Context
 
     private val args: FragmentMainHolderArgs by navArgs()
@@ -52,7 +52,7 @@ class FragmentMainHolder : Fragment() {
         vPager = binding.viewPager
         vPager.adapter = mainHolderFragmentAdapter
         tabLayout.setupWithViewPager(vPager)
-        vPager.setCurrentItem(args.viewPagerDisplayPage.toInt(),true)
+        vPager.setCurrentItem(args.viewPagerDisplayPage.toInt(), true)
     }
 
 }

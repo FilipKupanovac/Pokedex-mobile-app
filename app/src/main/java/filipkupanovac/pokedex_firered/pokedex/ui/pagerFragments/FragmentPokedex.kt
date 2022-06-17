@@ -1,6 +1,8 @@
 package filipkupanovac.pokedex_firered.pokedex.ui.pagerFragments
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import filipkupanovac.pokedex_firered.pokedex.data.db_impl.InMemoryDb
 import filipkupanovac.pokedex_firered.pokedex.databinding.FragmentPokedexBinding
-import filipkupanovac.pokedex_firered.pokedex.ui.model.Pokemon
 import filipkupanovac.pokedex_firered.pokedex.ui.recycler_items.OnPokemonSelectedListener
 import filipkupanovac.pokedex_firered.pokedex.ui.recycler_items.PokemonAdapter
 
@@ -31,8 +32,21 @@ class FragmentPokedex : Fragment(), OnPokemonSelectedListener {
         )
 
         setupRecyclerView()
+        setSearchBarListener()
 
         return binding.root
+    }
+
+    private fun setSearchBarListener() {
+        binding.pokedexSearchbar.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                updateData()
+            }
+            override fun afterTextChanged(p0: Editable?) {
+            }
+        })
     }
 
 
@@ -56,7 +70,14 @@ class FragmentPokedex : Fragment(), OnPokemonSelectedListener {
     }
 
     private fun updateData() {
-        pokemonAdapter.setPokemons(pokemonDb.getAllPokemon())
+        if (binding.pokedexSearchbar.text.isNotBlank())
+            pokemonAdapter.setPokemons(
+                pokemonDb.getFilteredPokemon(
+                    binding.pokedexSearchbar.text.toString()
+                )
+            )
+        else
+            pokemonAdapter.setPokemons(pokemonDb.getAllPokemon())
     }
 
 }
