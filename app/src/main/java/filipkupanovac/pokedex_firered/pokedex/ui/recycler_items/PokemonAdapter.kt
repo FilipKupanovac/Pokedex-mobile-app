@@ -34,7 +34,6 @@ class PokemonAdapter : RecyclerView.Adapter<PokemonViewHolder>() {
         this.pokémons.addAll(pokemons)
         this.notifyDataSetChanged()
     }
-
 }
 
 
