@@ -13,14 +13,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import filipkupanovac.pokedex_firered.pokedex.data.RetrofitInstance
 import filipkupanovac.pokedex_firered.pokedex.data.db_impl.InMemoryDb
 import filipkupanovac.pokedex_firered.pokedex.databinding.FragmentPokedexBinding
+import filipkupanovac.pokedex_firered.pokedex.ui.model.PokeObject
+import filipkupanovac.pokedex_firered.pokedex.ui.model.PokemonCollection
 import filipkupanovac.pokedex_firered.pokedex.ui.recycler_items.OnPokemonSelectedListener
 import filipkupanovac.pokedex_firered.pokedex.ui.recycler_items.PokemonAdapter
 import retrofit2.HttpException
+import retrofit2.Response
 import java.io.IOException
 
 class FragmentPokedex : Fragment(), OnPokemonSelectedListener {
 
-    private val tempPokemonNames: MutableList<String> = mutableListOf<String>()
     private var _binding: FragmentPokedexBinding? = null
     private val binding get() = _binding!!
 
@@ -87,11 +89,7 @@ class FragmentPokedex : Fragment(), OnPokemonSelectedListener {
             }
 
             if(response.isSuccessful && response.body() != null){
-
-                Log.d(TAG, "POKEMONI ${response.body()!!.results}")
-                response.body()!!.results.forEach {
-                    pokemon -> tempPokemonNames.add(pokemon.name)
-                }
+                Log.d(TAG, "POKEMONI ${response.body()}")
             }
         }
     }
@@ -103,16 +101,16 @@ class FragmentPokedex : Fragment(), OnPokemonSelectedListener {
 
     private fun updateData() {
         if (binding.pokedexSearchbar.text.isNotBlank())
-            pokemonAdapter.setPokemons(
-                pokemonDb.getFilteredPokemon(
-                    binding.pokedexSearchbar.text.toString()
+                pokemonAdapter.setPokemons(
+                    pokemonDb.getFilteredPokemon(
+                                binding.pokedexSearchbar.text.toString()
+                            )
                 )
-            )
+
         else{
-            pokemonAdapter.setPokemons(pokemonDb.getAllPokemon())
+                pokemonAdapter.setPokemons(pokemonDb.getAllPokemon()
+                )
         }
-
-
     }
 
     companion object{

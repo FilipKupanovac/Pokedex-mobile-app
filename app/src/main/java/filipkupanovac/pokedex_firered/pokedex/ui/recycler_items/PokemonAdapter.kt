@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import filipkupanovac.pokedex_firered.pokedex.R
 import filipkupanovac.pokedex_firered.pokedex.databinding.ItemPokemonBinding
+import filipkupanovac.pokedex_firered.pokedex.ui.model.PokeObject
 import filipkupanovac.pokedex_firered.pokedex.ui.model.Pokemon
 
 class PokemonAdapter : RecyclerView.Adapter<PokemonViewHolder>() {
@@ -38,7 +39,7 @@ class PokemonAdapter : RecyclerView.Adapter<PokemonViewHolder>() {
 
 
 class PokemonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-    fun bind(pokemon : Pokemon){
+    fun bind(pokemon : Pokemon ){
         val binding = ItemPokemonBinding.bind(itemView)
         //povezati na binding (layout resurs) svaki element i prilagoditi onom što pokemon daje
         binding.pokemonNameTextView.text ="Pokemon ${pokemon.id.toString()}"

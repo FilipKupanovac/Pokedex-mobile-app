@@ -13,4 +13,11 @@ interface RetrofitInterface {
         @Query("limit") limit: Int,
         @Query("offset") offset: Int = 0
     ): Response</*List<*/PokemonCollection/*>*/>
+
+
+    @GET("pokemon") //everything coming after baseUrl; endpoint
+    suspend fun getPokemonTEST(
+        @Query("limit") limit: Int,
+        @Query("offset") offset: Int = 0
+    ): Response</*List<*/PokemonCollection/*>*/>
 }
