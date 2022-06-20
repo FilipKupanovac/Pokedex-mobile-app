@@ -25,7 +25,7 @@ class FragmentProfileInfo : Fragment() {
             inflater, container, false
         )
 
-        setUpClickables()
+        setClickListeners()
 
         return binding.root
     }
@@ -34,7 +34,7 @@ class FragmentProfileInfo : Fragment() {
         super.onCreate(savedInstanceState)
     }
 
-    private fun setUpClickables() {
+    private fun setClickListeners() {
         binding.logOutButton.setOnClickListener{
             logOut()
         }

@@ -9,10 +9,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import filipkupanovac.pokedex_firered.pokedex.databinding.FragmentRegisterBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class FragmentRegister  : Fragment() {
+class FragmentRegister : Fragment() {
 
-    lateinit var binding : FragmentRegisterBinding
+    private val registerViewModel: RegisterViewModel by viewModel()
+    lateinit var binding: FragmentRegisterBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,30 +25,35 @@ class FragmentRegister  : Fragment() {
             inflater, container, false
         )
 
-        //Here you put fragment initialization
+        setClickListeners()
+        setObservers()
+
+        return binding.root
+    }
+
+    private fun setObservers() {
+        registerViewModel.isUserRegistered.observe(viewLifecycleOwner) {
+            if (it) {
+                NavigateToPokedex()
+            } else {
+                Toast.makeText(activity, "Registration failed", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    fun setClickListeners() {
         binding.buttonRegister.setOnClickListener {
-            TryRegister()
+            registerViewModel.register(
+                binding.editTextEmail.text.toString(),
+                binding.editTextUsername.text.toString(),
+                binding.editTextPassword.text.toString()
+            )
         }
         binding.textViewNavigateToSignIn.setOnClickListener {
             NavigateToSignIn()
         }
-
-        //End initialization
-        return binding.root
     }
 
-    private fun TryRegister() {
-        val email = binding.editTextEmail.text.toString()
-        val username = binding.editTextUsername.text.toString()
-        val password = binding.editTextPassword.text.toString()
-
-        if (email.contains("@") && username.isNotBlank() && password.length > 7){
-            Log.d("TRYREGISTER", "successful registration")
-            Toast.makeText(activity,"Successful registration, you are being redirected to Kanto region", Toast.LENGTH_LONG).show()
-
-            NavigateToPokedex()
-        }
-    }
 
     private fun NavigateToPokedex() {
         val action = FragmentRegisterDirections.actionFragmentRegisterToPokedexMainHolder()
@@ -58,7 +65,7 @@ class FragmentRegister  : Fragment() {
         findNavController().navigate(action)
     }
 
-    companion object{
+    companion object {
         val TAG = "SignInFragment"
 
         fun create(): Fragment {

@@ -8,7 +8,7 @@
         android:id="@+id/fragmentSignIn"
         android:name="filipkupanovac.pokedex_firered.pokedex.ui.userAuth.FragmentSignIn"
         android:label="fragment_sign_in"
-        tools:layout="@layout/fragment_sign_in" >
+        tools:layout="@layout/fragment_sign_in">
         <action
             android:id="@+id/action_fragmentSignIn_to_fragmentRegister"
             app:destination="@id/fragmentRegister"
@@ -25,7 +25,7 @@
         android:id="@+id/fragmentRegister"
         android:name="filipkupanovac.pokedex_firered.pokedex.ui.userAuth.FragmentRegister"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" >
+        tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_fragmentRegister_to_fragmentSignIn"
             app:destination="@id/fragmentSignIn"
@@ -42,20 +42,20 @@
         android:id="@+id/fragmentMainHolder"
         android:name="filipkupanovac.pokedex_firered.pokedex.ui.pokedexMainHolder.FragmentMainHolder"
         android:label="fragment_main_holder"
-        tools:layout="@layout/fragment_main_holder" >
+        tools:layout="@layout/fragment_main_holder">
         <action
             android:id="@+id/action_fragmentMainHolder_to_fragmentProfileInfo"
             app:destination="@id/fragmentProfileInfo" />
         <argument
             android:name="viewPagerDisplayPage"
-            app:argType="long"
-            android:defaultValue="1L" />
+            android:defaultValue="1L"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/fragmentProfileInfo"
         android:name="filipkupanovac.pokedex_firered.pokedex.ui.profileInfo.FragmentProfileInfo"
         android:label="fragment_profile_info"
-        tools:layout="@layout/fragment_profile_info" >
+        tools:layout="@layout/fragment_profile_info">
         <action
             android:id="@+id/action_fragmentProfileInfo_to_fragmentMainHolder"
             app:destination="@id/fragmentMainHolder"
