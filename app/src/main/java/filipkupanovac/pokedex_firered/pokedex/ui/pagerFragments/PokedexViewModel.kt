@@ -1,20 +1,18 @@
 package filipkupanovac.pokedex_firered.pokedex.ui.pagerFragments
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import filipkupanovac.pokedex_firered.pokedex.data.RetrofitInstance
 import filipkupanovac.pokedex_firered.pokedex.ui.model.PokeObject
-import filipkupanovac.pokedex_firered.pokedex.ui.model.PokemonCollection
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class PokedexViewModel : ViewModel() {
 
-    private val _pokemonCollection: MutableLiveData</*PokemonCollection*/List<PokeObject>> = MutableLiveData()
-    val pokemonCollection: LiveData</*PokemonCollection*/List<PokeObject>>
+    private val _pokemonCollection: MutableLiveData<List<PokeObject>> = MutableLiveData()
+    val pokemonCollection: LiveData<List<PokeObject>>
         get() = _pokemonCollection
 
     fun getPokemon(count: Int, offset: Int = 0) {
@@ -29,7 +27,6 @@ class PokedexViewModel : ViewModel() {
     }
 
     fun filterPokemons(filter : String) : List<PokeObject>{
-        // Staro val filteredList = pokemonCollection.value?.pokeList?.filter {
         val filteredList = pokemonCollection.value?.filter {
             it.name.contains(filter)
         }

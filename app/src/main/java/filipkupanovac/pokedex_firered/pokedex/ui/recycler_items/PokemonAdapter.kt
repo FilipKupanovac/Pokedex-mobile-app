@@ -14,9 +14,7 @@ import filipkupanovac.pokedex_firered.pokedex.ui.model.PokemonCollection
 
 class PokemonAdapter : RecyclerView.Adapter<PokemonViewHolder>() {
 
-    //staro val pokémons = mutableListOf<Pokemon/*PokeObject*/>()
     val pokémons = mutableListOf<PokeObject>()
-
     var pokemonSelectedListener: OnPokemonSelectedListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonViewHolder {
@@ -30,37 +28,23 @@ class PokemonAdapter : RecyclerView.Adapter<PokemonViewHolder>() {
         val pokemon = pokémons[position]
         holder.bind(pokemon)
         holder.itemView.setOnClickListener {
-            pokemonSelectedListener?.OnPokemonSelected(/*pokemon.id*/position.toLong())
+            pokemonSelectedListener?.OnPokemonSelected(position.toLong())
         }
     }
 
     override fun getItemCount(): Int = pokémons.count()
 
-    //STARO fun setPokemons(pokemons: List<Pokemon>) {
     fun setPokemons(pokemons: List<PokeObject>) {
         this.pokémons.clear()
-        //staro this.pokémons.addAll(pokemons)
         this.pokémons.addAll(pokemons)
-        // propali pokusaj#1 pokemons.value?.pokeList?.let { this.pokémons.addAll(it) }
         this.notifyDataSetChanged()
     }
-
-    /*fun setPokemonsNOVO(pokemons: LiveData<PokemonCollection>) {
-        this.pokémons.clear()
-        pokemons.value?.pokeList?.let { this.pokémons.addAll(it) }
-        this.notifyDataSetChanged()
-    }*/
 }
 
 
 class PokemonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    //fun bind(pokemon : Pokemon /*PokeObject*/ ){
     fun bind(pokemon: PokeObject) {
         val binding = ItemPokemonBinding.bind(itemView)
-        //povezati na binding (layout resurs) svaki element i prilagoditi onom što pokemon daje
-        //staro binding.pokemonNameTextView.text = "Pokemon ${pokemon/*.name*/.id.toString()}"
-        binding.pokemonNameTextView.text = "${pokemon.name.replaceFirstChar { 
-            it.uppercase()
-        }}"
+        binding.pokemonNameTextView.text = pokemon.name.replaceFirstChar { it.uppercase() }
     }
 }

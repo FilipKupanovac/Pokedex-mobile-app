@@ -48,7 +48,6 @@ class FragmentPokedex : Fragment(), OnPokemonSelectedListener {
 
     private fun setObservers() {
         pokedexViewModel.pokemonCollection.observe(viewLifecycleOwner) {
-            //setupRecyclerView()
             updateData()
         }
     }
@@ -85,21 +84,6 @@ class FragmentPokedex : Fragment(), OnPokemonSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        /*lifecycleScope.launchWhenCreated {
-            val response = try {
-                RetrofitInstance.api.getPokemon(13, 12)
-            } catch (e: IOException) {
-                Log.e(TAG, "onCreate: FUCKEDUP ioe")
-                return@launchWhenCreated
-            } catch (e: HttpException) {
-                Log.e(TAG, "onCreate: FUCKEDUP http")
-                return@launchWhenCreated
-            }
-
-            if(response.isSuccessful && response.body() != null){
-                Log.d(TAG, "POKEMONI ${response.body()}")
-            }
-        }*/
     }
 
     override fun onResume() {
@@ -109,26 +93,13 @@ class FragmentPokedex : Fragment(), OnPokemonSelectedListener {
 
     private fun updateData() {
         if (binding.pokedexSearchbar.text.isNotBlank()) {
-            /* STARO
             pokemonAdapter.setPokemons(
-                pokemonDb.getFilteredPokemon(
+                pokedexViewModel.filterPokemons(
                     binding.pokedexSearchbar.text.toString()
                 )
-            )*/
-            val resultsPokeList = pokedexViewModel.filterPokemons(
-                binding.pokedexSearchbar.text.toString()
             )
-            pokemonAdapter.setPokemons(
-                pokedexViewModel.pokemonCollection.value!!
-            )
-            Log.d(TAG, pokedexViewModel.pokemonCollection.toString())
         } else {
-            /* STARO
-            pokemonAdapter.setPokemons(
-                pokemonDb.getAllPokemon()
-            )*/
-            Log.d(TAG, "updateData: UPDATED ${pokedexViewModel.pokemonCollection.value}")
-            if(!pokedexViewModel.pokemonCollection.value.isNullOrEmpty()){
+            if (!pokedexViewModel.pokemonCollection.value.isNullOrEmpty()) {
                 pokemonAdapter.setPokemons(pokedexViewModel.pokemonCollection.value!!)
             }
         }
