@@ -22,7 +22,7 @@ class RegisterViewModel() : ViewModel() {
         if (password.length < MINIMUM_PASSWORD_LENGTH) {
             _isUserRegistered.postValue(false)
         }
-        if (email.contains("@") && username.isNotBlank()){
+        if (email.contains("@") && username.isNotBlank()) {
             //POKUŠAJ REGISTRACIJE NA PRAVI SERVIS
             _isUserRegistered.postValue(true)
         }

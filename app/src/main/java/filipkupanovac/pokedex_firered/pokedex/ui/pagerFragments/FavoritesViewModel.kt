@@ -14,20 +14,20 @@ class FavoritesViewModel() : ViewModel() {
     val favoritePokemonCollection: LiveData<List<PokeObject>>
         get() = _favoritePokemonsCollection
 
-    fun getFavorites(){
+    fun getFavorites() {
         /* TODO(Implement how to get favorites from room/retrofit, for now just mock) */
 
         viewModelScope.launch(Dispatchers.IO) {
             val response =
                 RetrofitInstance.api.getPokemon(151, 0)
 
-            if(response.isSuccessful && response.body() != null){
+            if (response.isSuccessful && response.body() != null) {
                 _favoritePokemonsCollection.postValue(response.body()!!.pokeList)
             }
         }
     }
 
-    fun filterPokemons(filter : String) : List<PokeObject>{
+    fun filterPokemons(filter: String): List<PokeObject> {
         val filteredList = favoritePokemonCollection.value?.filter {
             it.name.contains(filter)
         }

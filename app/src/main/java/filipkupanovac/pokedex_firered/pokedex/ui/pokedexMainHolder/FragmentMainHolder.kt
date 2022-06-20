@@ -31,12 +31,12 @@ class FragmentMainHolder : Fragment() {
         activityContext = activity?.applicationContext!!
 
         setupViewPager()
-        setupClickables()
+        setOnClickListeners()
 
         return binding.root
     }
 
-    private fun setupClickables() {
+    private fun setOnClickListeners() {
         binding.usernamePlaceholderMainHolderFragment.setOnClickListener {
             val action = FragmentMainHolderDirections.actionFragmentMainHolderToFragmentProfileInfo(
                 vPager.currentItem.toLong()

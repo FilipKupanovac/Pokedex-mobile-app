@@ -39,7 +39,7 @@ class FragmentFavorites : Fragment(), OnPokemonSelectedListener {
     }
 
     private fun setObservers() {
-        favoritesViewModel.favoritePokemonCollection.observe(viewLifecycleOwner){
+        favoritesViewModel.favoritePokemonCollection.observe(viewLifecycleOwner) {
             updateData()
         }
     }
@@ -60,7 +60,10 @@ class FragmentFavorites : Fragment(), OnPokemonSelectedListener {
     override fun OnPokemonSelected(id: Long?) {
         //TODO(setup viewPager page na 0, ažurirati podatke pokemona za details card)
         if (id != null) {
-            Log.d(FragmentPokedex.TAG, "OnPokemonSelected: ${favoritesViewModel.filterPokemons("ol")[id.toInt()]}")
+            Log.d(
+                FragmentPokedex.TAG,
+                "OnPokemonSelected: ${favoritesViewModel.filterPokemons("ol")[id.toInt()]}"
+            )
         }
     }
 
@@ -70,9 +73,9 @@ class FragmentFavorites : Fragment(), OnPokemonSelectedListener {
     }
 
     private fun updateData() {
-        if(!favoritesViewModel.favoritePokemonCollection.value.isNullOrEmpty())
-        pokemonAdapter.setPokemons(
-            favoritesViewModel.filterPokemons("ol")
-        )
+        if (!favoritesViewModel.favoritePokemonCollection.value.isNullOrEmpty())
+            pokemonAdapter.setPokemons(
+                favoritesViewModel.filterPokemons("ol")
+            )
     }
 }

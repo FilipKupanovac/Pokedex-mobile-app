@@ -10,14 +10,15 @@ import filipkupanovac.pokedex_firered.pokedex.ui.pagerFragments.FragmentFavorite
 import filipkupanovac.pokedex_firered.pokedex.ui.pagerFragments.FragmentPokedex
 import filipkupanovac.pokedex_firered.pokedex.ui.pagerFragments.FragmentPokemonDetails
 
-class MainHolderFragmentAdapter(private val context: Context, fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
+class MainHolderFragmentAdapter(private val context: Context, fragmentManager: FragmentManager) :
+    FragmentStatePagerAdapter(fragmentManager) {
 
     override fun getCount(): Int {
         return 3
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return when(position){
+        return when (position) {
             0 -> "Details"
             1 -> "Pokedex"
             2 -> "Favorites"
@@ -26,7 +27,7 @@ class MainHolderFragmentAdapter(private val context: Context, fragmentManager: F
     }
 
     override fun getItem(position: Int): Fragment {
-        return when(position){
+        return when (position) {
             0 -> FragmentPokemonDetails()
             1 -> FragmentPokedex()
             else -> FragmentFavorites()

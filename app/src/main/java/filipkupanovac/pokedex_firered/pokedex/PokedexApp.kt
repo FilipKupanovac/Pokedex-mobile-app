@@ -7,7 +7,7 @@ import org.koin.core.context.startKoin
 
 class PokedexApp : Application() {
 
-    companion object{
+    companion object {
         lateinit var application: PokedexApp
     }
 
@@ -16,9 +16,11 @@ class PokedexApp : Application() {
         application = this
         startKoin {
             androidContext(this@PokedexApp)
-            modules(listOf(
-                viewModelModule,
-            ))
+            modules(
+                listOf(
+                    viewModelModule,
+                )
+            )
         }
     }
 }

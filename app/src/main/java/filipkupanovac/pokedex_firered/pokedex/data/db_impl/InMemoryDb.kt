@@ -18,20 +18,20 @@ class InMemoryDb {
         //#region TEST
 
         //lifecycleScope.launchWhenCreated {
-            /*val response = try {
-                RetrofitInstance.api.getPokemonTEST(13, 12)
-            } catch (e: IOException) {
-                Log.e(FragmentPokedex.TAG, "onCreate: FUCKEDUP ioe")
-                //return@launchWhenCreated
-            } catch (e: HttpException) {
-                Log.e(FragmentPokedex.TAG, "onCreate: FUCKEDUP http")
-                //return@launchWhenCreated
-            }
-        Log.d(TAG, "EVOGA ${response}")*/
+        /*val response = try {
+            RetrofitInstance.api.getPokemonTEST(13, 12)
+        } catch (e: IOException) {
+            Log.e(FragmentPokedex.TAG, "onCreate: FUCKEDUP ioe")
+            //return@launchWhenCreated
+        } catch (e: HttpException) {
+            Log.e(FragmentPokedex.TAG, "onCreate: FUCKEDUP http")
+            //return@launchWhenCreated
+        }
+    Log.d(TAG, "EVOGA ${response}")*/
 
-            /*if(response.isSuccessful && response.body() != null){
-                Log.d(FragmentPokedex.TAG, "POKEMONI ${response.body()}")
-            }*/
+        /*if(response.isSuccessful && response.body() != null){
+            Log.d(FragmentPokedex.TAG, "POKEMONI ${response.body()}")
+        }*/
         //}
 
         //#endregion

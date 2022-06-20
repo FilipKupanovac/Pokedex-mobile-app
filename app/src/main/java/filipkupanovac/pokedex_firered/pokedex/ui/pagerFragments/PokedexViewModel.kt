@@ -20,13 +20,13 @@ class PokedexViewModel : ViewModel() {
             val response =
                 RetrofitInstance.api.getPokemon(count, offset)
 
-            if(response.isSuccessful && response.body() != null){
+            if (response.isSuccessful && response.body() != null) {
                 _pokemonCollection.postValue(response.body()!!.pokeList)
             }
         }
     }
 
-    fun filterPokemons(filter : String) : List<PokeObject>{
+    fun filterPokemons(filter: String): List<PokeObject> {
         val filteredList = pokemonCollection.value?.filter {
             it.name.contains(filter)
         }
