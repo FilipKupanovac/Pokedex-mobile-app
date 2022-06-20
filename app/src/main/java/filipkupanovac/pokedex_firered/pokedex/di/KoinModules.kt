@@ -1,5 +1,6 @@
 package filipkupanovac.pokedex_firered.pokedex.di
 
+import filipkupanovac.pokedex_firered.pokedex.ui.pagerFragments.FavoritesViewModel
 import filipkupanovac.pokedex_firered.pokedex.ui.pagerFragments.PokedexViewModel
 import filipkupanovac.pokedex_firered.pokedex.ui.userAuth.RegisterViewModel
 import filipkupanovac.pokedex_firered.pokedex.ui.userAuth.SignInViewModel
@@ -11,4 +12,5 @@ val viewModelModule = module {
     viewModel { SignInViewModel() }
     viewModel { RegisterViewModel() }
     viewModel { PokedexViewModel() }
+    viewModel { FavoritesViewModel() }
 }

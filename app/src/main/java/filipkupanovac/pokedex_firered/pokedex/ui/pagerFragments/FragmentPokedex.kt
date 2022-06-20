@@ -17,17 +17,12 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentPokedex : Fragment(), OnPokemonSelectedListener {
 
-    //NOVO
     private val pokedexViewModel: PokedexViewModel by viewModel()
-
-    //END NOVO
     private var _binding: FragmentPokedexBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var pokemonAdapter: PokemonAdapter
-
-    private val pokemonDb = InMemoryDb()
-
+    
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -78,7 +73,10 @@ class FragmentPokedex : Fragment(), OnPokemonSelectedListener {
     }
 
     override fun OnPokemonSelected(id: Long?) {
-        //setup viewPager page na 0, ažurirati podatke pokemona za details card
+        //TODO(setup viewPager page na 0, ažurirati podatke pokemona za details card)
+        if (id != null) {
+            Log.d(TAG, "OnPokemonSelected: ${pokedexViewModel.pokemonCollection.value!![id.toInt()]}")
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
