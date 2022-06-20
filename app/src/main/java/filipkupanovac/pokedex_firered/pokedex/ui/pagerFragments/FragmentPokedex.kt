@@ -8,21 +8,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import filipkupanovac.pokedex_firered.pokedex.data.RetrofitInstance
 import filipkupanovac.pokedex_firered.pokedex.data.db_impl.InMemoryDb
 import filipkupanovac.pokedex_firered.pokedex.databinding.FragmentPokedexBinding
-import filipkupanovac.pokedex_firered.pokedex.ui.model.PokeObject
-import filipkupanovac.pokedex_firered.pokedex.ui.model.PokemonCollection
 import filipkupanovac.pokedex_firered.pokedex.ui.recycler_items.OnPokemonSelectedListener
 import filipkupanovac.pokedex_firered.pokedex.ui.recycler_items.PokemonAdapter
-import retrofit2.HttpException
-import retrofit2.Response
-import java.io.IOException
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentPokedex : Fragment(), OnPokemonSelectedListener {
 
+    //NOVO
+    private val pokedexViewModel: PokedexViewModel by viewModel()
+
+    //END NOVO
     private var _binding: FragmentPokedexBinding? = null
     private val binding get() = _binding!!
 
@@ -39,10 +37,20 @@ class FragmentPokedex : Fragment(), OnPokemonSelectedListener {
             inflater, container, false
         )
 
+        pokedexViewModel.getPokemon(151)
+
         setupRecyclerView()
         setSearchBarListener()
+        setObservers()
 
         return binding.root
+    }
+
+    private fun setObservers() {
+        pokedexViewModel.pokemonCollection.observe(viewLifecycleOwner) {
+            //setupRecyclerView()
+            updateData()
+        }
     }
 
     private fun setSearchBarListener() {
@@ -77,7 +85,7 @@ class FragmentPokedex : Fragment(), OnPokemonSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        lifecycleScope.launchWhenCreated {
+        /*lifecycleScope.launchWhenCreated {
             val response = try {
                 RetrofitInstance.api.getPokemon(13, 12)
             } catch (e: IOException) {
@@ -91,7 +99,7 @@ class FragmentPokedex : Fragment(), OnPokemonSelectedListener {
             if(response.isSuccessful && response.body() != null){
                 Log.d(TAG, "POKEMONI ${response.body()}")
             }
-        }
+        }*/
     }
 
     override fun onResume() {
@@ -100,20 +108,33 @@ class FragmentPokedex : Fragment(), OnPokemonSelectedListener {
     }
 
     private fun updateData() {
-        if (binding.pokedexSearchbar.text.isNotBlank())
-                pokemonAdapter.setPokemons(
-                    pokemonDb.getFilteredPokemon(
-                                binding.pokedexSearchbar.text.toString()
-                            )
+        if (binding.pokedexSearchbar.text.isNotBlank()) {
+            /* STARO
+            pokemonAdapter.setPokemons(
+                pokemonDb.getFilteredPokemon(
+                    binding.pokedexSearchbar.text.toString()
                 )
-
-        else{
-                pokemonAdapter.setPokemons(pokemonDb.getAllPokemon()
-                )
+            )*/
+            val resultsPokeList = pokedexViewModel.filterPokemons(
+                binding.pokedexSearchbar.text.toString()
+            )
+            pokemonAdapter.setPokemons(
+                pokedexViewModel.pokemonCollection.value!!
+            )
+            Log.d(TAG, pokedexViewModel.pokemonCollection.toString())
+        } else {
+            /* STARO
+            pokemonAdapter.setPokemons(
+                pokemonDb.getAllPokemon()
+            )*/
+            Log.d(TAG, "updateData: UPDATED ${pokedexViewModel.pokemonCollection.value}")
+            if(!pokedexViewModel.pokemonCollection.value.isNullOrEmpty()){
+                pokemonAdapter.setPokemons(pokedexViewModel.pokemonCollection.value!!)
+            }
         }
     }
 
-    companion object{
+    companion object {
         val TAG = "GGGGG"
     }
 }

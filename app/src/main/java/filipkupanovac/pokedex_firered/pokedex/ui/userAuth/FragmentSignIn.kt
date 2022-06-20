@@ -24,7 +24,6 @@ class FragmentSignIn : Fragment() {
         /*if(isUserSignedIn){
             NavigateToPokedex()
         }*/
-
         binding = FragmentSignInBinding.inflate(
             inflater, container, false
         )

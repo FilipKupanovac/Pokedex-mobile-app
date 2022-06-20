@@ -57,6 +57,6 @@ class FragmentFavorites : Fragment(), OnPokemonSelectedListener {
     }
 
     private fun updateData() {
-        pokemonAdapter.setPokemons(pokemonDb.getFilteredPokemon("5"))
+        //pokemonAdapter.setPokemons(pokemonDb.getFilteredPokemon("5"))
     }
 }
