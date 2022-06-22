@@ -56,7 +56,7 @@ class FragmentRegister : Fragment() {
 
 
     private fun NavigateToPokedex() {
-        val action = FragmentRegisterDirections.actionFragmentRegisterToPokedexMainHolder()
+        val action = FragmentRegisterDirections.actionFragmentRegisterToPokedexMainHolder(0)
         findNavController().navigate(action)
     }
 

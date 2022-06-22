@@ -54,7 +54,7 @@ class FragmentSignIn : Fragment() {
     }
 
     private fun NavigateToPokedex() {
-        val action = FragmentSignInDirections.actionFragmentSignInToPokedexMainHolder()
+        val action = FragmentSignInDirections.actionFragmentSignInToPokedexMainHolder(0)
         findNavController().navigate(action)
     }
 

@@ -32,8 +32,8 @@ class FragmentFavorites : Fragment(), OnPokemonSelectedListener {
 
         favoritesViewModel.getFavorites()
 
-        setupRecyclerView()
         setObservers()
+        setupRecyclerView()
 
         return binding.root
     }
@@ -70,6 +70,7 @@ class FragmentFavorites : Fragment(), OnPokemonSelectedListener {
     override fun onResume() {
         super.onResume()
         updateData()
+
     }
 
     private fun updateData() {

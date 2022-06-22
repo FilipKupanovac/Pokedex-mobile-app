@@ -53,6 +53,7 @@ class FragmentProfileInfo : Fragment() {
         val action =
             FragmentProfileInfoDirections.actionFragmentProfileInfoToFragmentMainHolder(args.activeFragmentPositionOnCall)
         findNavController().navigate(action)
+        //findNavController().navigateUp()
     }
 
     private fun deleteAccount() {
@@ -64,5 +65,6 @@ class FragmentProfileInfo : Fragment() {
         findNavController().navigate(action)
         Toast.makeText(activity?.applicationContext, message, Toast.LENGTH_SHORT).show()
     }
+
 
 }

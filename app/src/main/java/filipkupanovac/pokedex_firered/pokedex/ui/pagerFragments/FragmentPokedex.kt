@@ -1,5 +1,6 @@
 package filipkupanovac.pokedex_firered.pokedex.ui.pagerFragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import filipkupanovac.pokedex_firered.pokedex.data.db_impl.InMemoryDb
 import filipkupanovac.pokedex_firered.pokedex.databinding.FragmentPokedexBinding
+import filipkupanovac.pokedex_firered.pokedex.ui.PokemonDetailsActivity
 import filipkupanovac.pokedex_firered.pokedex.ui.recycler_items.OnPokemonSelectedListener
 import filipkupanovac.pokedex_firered.pokedex.ui.recycler_items.PokemonAdapter
 import kotlinx.coroutines.NonDisposableHandle.parent
@@ -83,6 +85,10 @@ class FragmentPokedex : Fragment(), OnPokemonSelectedListener {
                 "OnPokemonSelected: ${pokedexViewModel.pokemonCollection.value!![id.toInt()]}"
             )
         }
+
+        val intent = Intent(requireContext(), PokemonDetailsActivity::class.java)
+
+        startActivity(intent)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
