@@ -13,20 +13,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        /*Log.d("ODJEBI", "aaaa ${supportFragmentManager.fragments}")
-        Log.d("ODJEBI", "NA STACKU IMA JEBENIH ${supportFragmentManager.backStackEntryCount} FRAGMENATA")
-        if (supportFragmentManager.backStackEntryCount > 0) {
-            Log.d("DE ODJEBI", "onBackPressed: ")
-            supportFragmentManager.popBackStack()
-        } else {
-            super.onBackPressed()
-        }*/
 
         if (supportFragmentManager.backStackEntryCount > 0) {
             supportFragmentManager.popBackStack()
         } else {
             super.onBackPressed()
         }
-        //super.onBackPressed()
     }
 }
