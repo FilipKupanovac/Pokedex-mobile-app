@@ -15,4 +15,8 @@ class PokemonDetailsActivity : AppCompatActivity() {
 
         setContentView(binding.root)
     }
+
+    override fun onBackPressed() {
+        finish()
+    }
 }

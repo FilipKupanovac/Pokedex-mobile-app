@@ -19,7 +19,11 @@
             app:destination="@id/fragmentMainHolder"
             app:launchSingleTop="false"
             app:popUpTo="@id/fragmentSignIn"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="true">
+            <argument
+            android:name="viewPagerDisplayPage"
+            android:defaultValue="0L" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/fragmentRegister"
@@ -36,7 +40,11 @@
             app:destination="@id/fragmentMainHolder"
             app:launchSingleTop="false"
             app:popUpTo="@id/fragmentRegister"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="true" >
+            <argument
+                android:name="viewPagerDisplayPage"
+                android:defaultValue="0L" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/fragmentMainHolder"
@@ -59,8 +67,7 @@
         <action
             android:id="@+id/action_fragmentProfileInfo_to_fragmentMainHolder"
             app:destination="@id/fragmentMainHolder"
-            app:popUpTo="@id/fragmentProfileInfo"
-            app:popUpToInclusive="true" />
+            app:popUpTo="@id/fragmentMainHolder" />
         <action
             android:id="@+id/action_fragmentProfileInfo_to_fragmentSignIn"
             app:destination="@id/fragmentSignIn"

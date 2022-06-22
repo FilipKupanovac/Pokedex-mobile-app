@@ -1,6 +1,7 @@
 package filipkupanovac.pokedex_firered.pokedex.ui.profileInfo
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +26,7 @@ class FragmentProfileInfo : Fragment() {
             inflater, container, false
         )
 
+        Log.d("POPUŠIMI", parentFragmentManager.backStackEntryCount.toString())
         setClickListeners()
 
         return binding.root
@@ -53,7 +55,6 @@ class FragmentProfileInfo : Fragment() {
         val action =
             FragmentProfileInfoDirections.actionFragmentProfileInfoToFragmentMainHolder(args.activeFragmentPositionOnCall)
         findNavController().navigate(action)
-        //findNavController().navigateUp()
     }
 
     private fun deleteAccount() {

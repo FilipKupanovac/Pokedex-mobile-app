@@ -10,11 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import filipkupanovac.pokedex_firered.pokedex.data.db_impl.InMemoryDb
 import filipkupanovac.pokedex_firered.pokedex.databinding.FragmentPokedexBinding
 import filipkupanovac.pokedex_firered.pokedex.ui.PokemonDetailsActivity
+import filipkupanovac.pokedex_firered.pokedex.ui.pokedexMainHolder.FragmentMainHolderDirections
 import filipkupanovac.pokedex_firered.pokedex.ui.recycler_items.OnPokemonSelectedListener
 import filipkupanovac.pokedex_firered.pokedex.ui.recycler_items.PokemonAdapter
 import kotlinx.coroutines.NonDisposableHandle.parent
@@ -86,7 +88,7 @@ class FragmentPokedex : Fragment(), OnPokemonSelectedListener {
             )
         }
 
-        val intent = Intent(requireContext(), PokemonDetailsActivity::class.java)
+        val intent = Intent(/*requireContext()*/requireActivity(), PokemonDetailsActivity::class.java)
 
         startActivity(intent)
     }

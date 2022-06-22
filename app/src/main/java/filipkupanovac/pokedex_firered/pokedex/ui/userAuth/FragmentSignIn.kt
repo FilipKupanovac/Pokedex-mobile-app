@@ -14,16 +14,15 @@ class FragmentSignIn : Fragment() {
 
     private val signInViewModel: SignInViewModel by viewModel()
     lateinit var binding: FragmentSignInBinding
-    private val isUserSignedIn = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        /*if(isUserSignedIn){
-            NavigateToPokedex()
-        }*/
+
+        //NavigateToPokedex()
+
         binding = FragmentSignInBinding.inflate(
             inflater, container, false
         )
@@ -54,7 +53,7 @@ class FragmentSignIn : Fragment() {
     }
 
     private fun NavigateToPokedex() {
-        val action = FragmentSignInDirections.actionFragmentSignInToPokedexMainHolder(0)
+        val action = FragmentSignInDirections.actionFragmentSignInToPokedexMainHolder()
         findNavController().navigate(action)
     }
 

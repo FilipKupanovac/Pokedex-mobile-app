@@ -1,14 +1,18 @@
 package filipkupanovac.pokedex_firered.pokedex.ui.pagerFragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import filipkupanovac.pokedex_firered.pokedex.data.db_impl.InMemoryDb
 import filipkupanovac.pokedex_firered.pokedex.databinding.FragmentFavoritesBinding
+import filipkupanovac.pokedex_firered.pokedex.ui.PokemonDetailsActivity
+import filipkupanovac.pokedex_firered.pokedex.ui.pokedexMainHolder.FragmentMainHolderDirections
 import filipkupanovac.pokedex_firered.pokedex.ui.recycler_items.OnPokemonSelectedListener
 import filipkupanovac.pokedex_firered.pokedex.ui.recycler_items.PokemonAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -32,8 +36,8 @@ class FragmentFavorites : Fragment(), OnPokemonSelectedListener {
 
         favoritesViewModel.getFavorites()
 
-        setObservers()
         setupRecyclerView()
+        setObservers()
 
         return binding.root
     }
@@ -65,6 +69,10 @@ class FragmentFavorites : Fragment(), OnPokemonSelectedListener {
                 "OnPokemonSelected: ${favoritesViewModel.filterPokemons("ol")[id.toInt()]}"
             )
         }
+        val intent = Intent(/*requireContext()*/requireActivity(), PokemonDetailsActivity::class.java)
+
+        startActivity(intent)
+        /*findNavController().navigate(FragmentMainHolderDirections.actionFragmentMainHolderToFragmentProfileInfo(1L))*/
     }
 
     override fun onResume() {
