@@ -1,6 +1,7 @@
 package filipkupanovac.pokedex_firered.pokedex.ui.profileInfo
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +14,8 @@ import filipkupanovac.pokedex_firered.pokedex.databinding.FragmentProfileInfoBin
 
 class FragmentProfileInfo : Fragment() {
 
-    private lateinit var binding : FragmentProfileInfoBinding
-    private val args : FragmentProfileInfoArgs by navArgs()
+    private lateinit var binding: FragmentProfileInfoBinding
+    private val args: FragmentProfileInfoArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,7 +26,8 @@ class FragmentProfileInfo : Fragment() {
             inflater, container, false
         )
 
-        setUpClickables()
+        Log.d("POPUŠIMI", parentFragmentManager.backStackEntryCount.toString())
+        setClickListeners()
 
         return binding.root
     }
@@ -34,8 +36,8 @@ class FragmentProfileInfo : Fragment() {
         super.onCreate(savedInstanceState)
     }
 
-    private fun setUpClickables() {
-        binding.logOutButton.setOnClickListener{
+    private fun setClickListeners() {
+        binding.logOutButton.setOnClickListener {
             logOut()
         }
 
@@ -50,7 +52,8 @@ class FragmentProfileInfo : Fragment() {
     }
 
     private fun navigateToMainHolder() {
-        val action = FragmentProfileInfoDirections.actionFragmentProfileInfoToFragmentMainHolder(args.activeFragmentPositionOnCall)
+        val action =
+            FragmentProfileInfoDirections.actionFragmentProfileInfoToFragmentMainHolder(args.activeFragmentPositionOnCall)
         findNavController().navigate(action)
     }
 
@@ -63,5 +66,6 @@ class FragmentProfileInfo : Fragment() {
         findNavController().navigate(action)
         Toast.makeText(activity?.applicationContext, message, Toast.LENGTH_SHORT).show()
     }
+
 
 }

@@ -1,23 +1,25 @@
 package filipkupanovac.pokedex_firered.pokedex.ui.pagerFragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import filipkupanovac.pokedex_firered.pokedex.data.db_impl.InMemoryDb
 import filipkupanovac.pokedex_firered.pokedex.databinding.FragmentFavoritesBinding
+import filipkupanovac.pokedex_firered.pokedex.ui.activities.PokemonDetailsActivity
 import filipkupanovac.pokedex_firered.pokedex.ui.recycler_items.OnPokemonSelectedListener
 import filipkupanovac.pokedex_firered.pokedex.ui.recycler_items.PokemonAdapter
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentFavorites : Fragment(), OnPokemonSelectedListener {
+
+    private val favoritesViewModel: FavoritesViewModel by viewModel()
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var pokemonAdapter: PokemonAdapter
-
-    private val pokemonDb = InMemoryDb()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,16 +30,24 @@ class FragmentFavorites : Fragment(), OnPokemonSelectedListener {
             inflater, container, false
         )
 
+        favoritesViewModel.getFavorites()
+
         setupRecyclerView()
+        setObservers()
 
         return binding.root
+    }
+
+    private fun setObservers() {
+        favoritesViewModel.favoritePokemonCollection.observe(viewLifecycleOwner) {
+            updateData()
+        }
     }
 
     private fun setupRecyclerView() {
         binding.favoritesRecyclerView.layoutManager = LinearLayoutManager(
             context, LinearLayoutManager.VERTICAL, false
         )
-
         pokemonAdapter = PokemonAdapter()
         pokemonAdapter.pokemonSelectedListener = this
         binding.favoritesRecyclerView.adapter = pokemonAdapter
@@ -47,16 +57,29 @@ class FragmentFavorites : Fragment(), OnPokemonSelectedListener {
         super.onCreate(savedInstanceState)
     }
 
-    override fun OnPokemonSelected(id: Long?) {
-        //setup viewPager page na 0, ažurirati podatke pokemona za details card
+    override fun OnPokemonSelected(id: Int) {
+        val pokemonUriArray = favoritesViewModel.filterPokemons("ol")[id].url.split('/')
+        val pokemonId = pokemonUriArray[pokemonUriArray.size-2]
+        /*if (id != null) {
+            Log.d(
+                FragmentPokedex.TAG,
+                "OnPokemonSelected: ${pokemonId*//*favoritesViewModel.filterPokemons("ol")[id.toInt()]*//*}"
+            )
+        }*/
+        val intent = Intent(requireActivity(), PokemonDetailsActivity::class.java).putExtra("id",pokemonId)
+        startActivity(intent)
     }
 
     override fun onResume() {
         super.onResume()
         updateData()
+
     }
 
     private fun updateData() {
-        pokemonAdapter.setPokemons(pokemonDb.getFilteredPokemon("5"))
+        if (!favoritesViewModel.favoritePokemonCollection.value.isNullOrEmpty())
+            pokemonAdapter.setPokemons(
+                favoritesViewModel.filterPokemons("ol")
+            )
     }
 }

@@ -8,43 +8,47 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import filipkupanovac.pokedex_firered.pokedex.databinding.FragmentSignInBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentSignIn : Fragment() {
 
-    lateinit var binding : FragmentSignInBinding
-    private val isUserSignedIn = true
+    private val signInViewModel: SignInViewModel by viewModel()
+    lateinit var binding: FragmentSignInBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        /*if(isUserSignedIn){
-            NavigateToPokedex()
-        }*/
+
+        //NavigateToPokedex()
 
         binding = FragmentSignInBinding.inflate(
             inflater, container, false
         )
+        setClickListeners()
+        setObservers()
 
-        //Here you put fragment initialization
-        binding.buttonSignIn.setOnClickListener {
-            TrySignIn()
-        }
-        binding.textViewNavigateToRegister.setOnClickListener{
-            NavigateToRegister()
-        }
-        //End initialization
         return binding.root
     }
 
-    private fun TrySignIn() {
-        val email = binding.editTextEmail.text.toString()
-        val password = binding.editTextPassword.text.toString()
+    private fun setObservers() {
+        signInViewModel.isUserSignedIn.observe(viewLifecycleOwner) {
+            if (it) {
+                NavigateToPokedex()
+            }
+        }
+    }
 
-        if(email.contains("@") && password.length > 7){
-            Toast.makeText(activity, "Sign In successful, you are being redirected to Kanto Region!", Toast.LENGTH_LONG).show()
-            NavigateToPokedex()
+    private fun setClickListeners() {
+        binding.buttonSignIn.setOnClickListener {
+            signInViewModel.signIn(
+                binding.editTextEmail.text.toString(),
+                binding.editTextPassword.text.toString()
+            )
+        }
+        binding.textViewNavigateToRegister.setOnClickListener {
+            NavigateToRegister()
         }
     }
 
@@ -58,10 +62,10 @@ class FragmentSignIn : Fragment() {
         findNavController().navigate(action)
     }
 
-    companion object{
+    companion object {
         val TAG = "SignInFragment"
 
-        fun create(): Fragment{
+        fun create(): Fragment {
             return FragmentSignIn()
         }
     }

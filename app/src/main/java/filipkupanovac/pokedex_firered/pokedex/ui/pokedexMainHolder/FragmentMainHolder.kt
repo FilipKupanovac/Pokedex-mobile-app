@@ -2,6 +2,7 @@ package filipkupanovac.pokedex_firered.pokedex.ui.pokedexMainHolder
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,12 +32,12 @@ class FragmentMainHolder : Fragment() {
         activityContext = activity?.applicationContext!!
 
         setupViewPager()
-        setupClickables()
+        setOnClickListeners()
 
         return binding.root
     }
 
-    private fun setupClickables() {
+    private fun setOnClickListeners() {
         binding.usernamePlaceholderMainHolderFragment.setOnClickListener {
             val action = FragmentMainHolderDirections.actionFragmentMainHolderToFragmentProfileInfo(
                 vPager.currentItem.toLong()
@@ -46,13 +47,16 @@ class FragmentMainHolder : Fragment() {
     }
 
     private fun setupViewPager() {
-        val mainHolderFragmentAdapter =
-            activity?.supportFragmentManager?.let { MainHolderFragmentAdapter(activityContext, it) }
-        tabLayout = binding.tabLayout
+        val mainHolderFragmentAdapter = MainHolderFragmentAdapter(activityContext,childFragmentManager)
         vPager = binding.viewPager
         vPager.adapter = mainHolderFragmentAdapter
+        tabLayout = binding.tabLayout
         tabLayout.setupWithViewPager(vPager)
         vPager.setCurrentItem(args.viewPagerDisplayPage.toInt(), true)
     }
 
+    override fun onResume() {
+        super.onResume()
+        setupViewPager()
+    }
 }
