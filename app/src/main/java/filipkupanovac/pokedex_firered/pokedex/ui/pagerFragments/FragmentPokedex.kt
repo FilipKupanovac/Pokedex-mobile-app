@@ -27,7 +27,7 @@ class FragmentPokedex : Fragment(), OnPokemonSelectedListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentPokedexBinding.inflate(
             inflater, container, false
         )
@@ -73,20 +73,21 @@ class FragmentPokedex : Fragment(), OnPokemonSelectedListener {
     }
 
     override fun OnPokemonSelected(id: Int) {
-        val pokemonUriArray = pokedexViewModel.pokemonCollection.value?.get(id)?.url?.split('/')
-        val pokemonId = pokemonUriArray?.get(pokemonUriArray.size-2)
-
-        val intent = Intent(/*requireActivity()*/activity, PokemonDetailsActivity::class.java).apply {
-            //putExtra("id", pokemonId)
-            putExtra("pokemon",pokedexViewModel.pokemonCollection.value?.get(id))
+        val pokemonUriArray: List<String> = if (binding.pokedexSearchbar.text.isNotBlank()
+            && binding.pokedexSearchbar.text.isNotEmpty()
+        ) {
+            pokedexViewModel.filterPokemons(binding.pokedexSearchbar.text.toString())[id].url.split(
+                '/'
+            )
+        } else {
+            pokedexViewModel.pokemonCollection.value?.get(id)?.url?.split('/')!!
+        }
+        val pokemonId = pokemonUriArray[pokemonUriArray.size - 2].toInt()
+        val intent = Intent(activity, PokemonDetailsActivity::class.java).apply {
+            putExtra("pokemon", pokedexViewModel.pokemonCollection.value?.get(pokemonId - 1))
         }
 
         startActivity(intent)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
     }
 
     override fun onResume() {
@@ -109,6 +110,6 @@ class FragmentPokedex : Fragment(), OnPokemonSelectedListener {
     }
 
     companion object {
-        val TAG = "GGGGG"
+        const val TAG = "FragmentPokedex"
     }
 }

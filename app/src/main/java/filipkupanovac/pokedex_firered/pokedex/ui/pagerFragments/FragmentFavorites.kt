@@ -59,14 +59,12 @@ class FragmentFavorites : Fragment(), OnPokemonSelectedListener {
 
     override fun OnPokemonSelected(id: Int) {
         val pokemonUriArray = favoritesViewModel.filterPokemons("ol")[id].url.split('/')
-        val pokemonId = pokemonUriArray[pokemonUriArray.size-2]
-        /*if (id != null) {
-            Log.d(
-                FragmentPokedex.TAG,
-                "OnPokemonSelected: ${pokemonId*//*favoritesViewModel.filterPokemons("ol")[id.toInt()]*//*}"
-            )
-        }*/
-        val intent = Intent(requireActivity(), PokemonDetailsActivity::class.java).putExtra("id",pokemonId)
+        val pokemonId = pokemonUriArray[pokemonUriArray.size-2].toInt()
+
+        val intent = Intent(activity, PokemonDetailsActivity::class.java).apply {
+            putExtra("pokemon",favoritesViewModel.favoritePokemonCollection.value?.get(pokemonId-1))
+        }
+
         startActivity(intent)
     }
 
