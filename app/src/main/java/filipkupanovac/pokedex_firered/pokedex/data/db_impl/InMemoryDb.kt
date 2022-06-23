@@ -10,6 +10,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
 
+/*
 class InMemoryDb {
 
     private var pokemons = mutableListOf<Pokemon>()
@@ -18,7 +19,8 @@ class InMemoryDb {
         //#region TEST
 
         //lifecycleScope.launchWhenCreated {
-        /*val response = try {
+        */
+/*val response = try {
             RetrofitInstance.api.getPokemonTEST(13, 12)
         } catch (e: IOException) {
             Log.e(FragmentPokedex.TAG, "onCreate: FUCKEDUP ioe")
@@ -27,11 +29,14 @@ class InMemoryDb {
             Log.e(FragmentPokedex.TAG, "onCreate: FUCKEDUP http")
             //return@launchWhenCreated
         }
-    Log.d(TAG, "EVOGA ${response}")*/
+    Log.d(TAG, "EVOGA ${response}")*//*
 
-        /*if(response.isSuccessful && response.body() != null){
+
+        */
+/*if(response.isSuccessful && response.body() != null){
             Log.d(FragmentPokedex.TAG, "POKEMONI ${response.body()}")
-        }*/
+        }*//*
+
         //}
 
         //#endregion
@@ -55,4 +60,4 @@ class InMemoryDb {
         }
         return tempPokelist
     }
-}
+}*/

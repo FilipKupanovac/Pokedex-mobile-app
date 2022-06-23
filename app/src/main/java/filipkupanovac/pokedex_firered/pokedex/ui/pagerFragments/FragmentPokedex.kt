@@ -4,22 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager.widget.ViewPager
-import filipkupanovac.pokedex_firered.pokedex.data.db_impl.InMemoryDb
 import filipkupanovac.pokedex_firered.pokedex.databinding.FragmentPokedexBinding
-import filipkupanovac.pokedex_firered.pokedex.ui.PokemonDetailsActivity
-import filipkupanovac.pokedex_firered.pokedex.ui.pokedexMainHolder.FragmentMainHolderDirections
+import filipkupanovac.pokedex_firered.pokedex.ui.activities.PokemonDetailsActivity
 import filipkupanovac.pokedex_firered.pokedex.ui.recycler_items.OnPokemonSelectedListener
 import filipkupanovac.pokedex_firered.pokedex.ui.recycler_items.PokemonAdapter
-import kotlinx.coroutines.NonDisposableHandle.parent
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentPokedex : Fragment(), OnPokemonSelectedListener {
@@ -79,16 +72,14 @@ class FragmentPokedex : Fragment(), OnPokemonSelectedListener {
         binding.pokedexRecyclerView.adapter = pokemonAdapter
     }
 
-    override fun OnPokemonSelected(id: Long?) {
-        //TODO(setup viewPager page na 0, ažurirati podatke pokemona za details card)
-        if (id != null) {
-            Log.d(
-                TAG,
-                "OnPokemonSelected: ${pokedexViewModel.pokemonCollection.value!![id.toInt()]}"
-            )
-        }
+    override fun OnPokemonSelected(id: Int) {
+        val pokemonUriArray = pokedexViewModel.pokemonCollection.value?.get(id)?.url?.split('/')
+        val pokemonId = pokemonUriArray?.get(pokemonUriArray.size-2)
 
-        val intent = Intent(/*requireContext()*/requireActivity(), PokemonDetailsActivity::class.java)
+        val intent = Intent(/*requireActivity()*/activity, PokemonDetailsActivity::class.java).apply {
+            //putExtra("id", pokemonId)
+            putExtra("pokemon",pokedexViewModel.pokemonCollection.value?.get(id))
+        }
 
         startActivity(intent)
     }

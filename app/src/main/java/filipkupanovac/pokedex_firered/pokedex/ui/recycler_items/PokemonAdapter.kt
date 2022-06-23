@@ -28,7 +28,7 @@ class PokemonAdapter : RecyclerView.Adapter<PokemonViewHolder>() {
         val pokemon = pokémons[position]
         holder.bind(pokemon)
         holder.itemView.setOnClickListener {
-            pokemonSelectedListener?.OnPokemonSelected(position.toLong())
+            pokemonSelectedListener?.OnPokemonSelected(position)
         }
     }
 
