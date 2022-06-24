@@ -48,7 +48,7 @@ class FragmentFavorites : Fragment(), OnPokemonSelectedListener {
         binding.favoritesRecyclerView.layoutManager = LinearLayoutManager(
             context, LinearLayoutManager.VERTICAL, false
         )
-        pokemonAdapter = PokemonAdapter()
+        pokemonAdapter = PokemonAdapter(true)
         pokemonAdapter.pokemonSelectedListener = this
         binding.favoritesRecyclerView.adapter = pokemonAdapter
     }
