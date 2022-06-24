@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,7 +34,6 @@ class FragmentPokedex : Fragment(), OnPokemonSelectedListener {
         )
 
         pokedexViewModel.getPokemon(151)
-
         setupRecyclerView()
         setSearchBarListener()
         setObservers()
@@ -92,7 +92,13 @@ class FragmentPokedex : Fragment(), OnPokemonSelectedListener {
 
     override fun onResume() {
         super.onResume()
+        Log.d(TAG, "onResume: ${pokedexViewModel.getSearchbarValue()}")
         updateData()
+    }
+
+    override fun onDestroy() {
+        pokedexViewModel.saveSearchbarValue("")
+        super.onDestroy()
     }
 
     private fun updateData() {

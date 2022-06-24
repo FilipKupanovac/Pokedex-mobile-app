@@ -34,6 +34,14 @@ class PokedexViewModel(private val prefsManager: SharedPreferenceManager) : View
         return filteredList!!
     }
 
+    fun saveSearchbarValue(input: String) {
+        prefsManager.saveSearchbarValue(input)
+    }
+
+    fun getSearchbarValue(): String {
+        return prefsManager.getSearchbarValue()
+    }
+
     companion object {
         val TAG = "PokedexViewModel"
     }
