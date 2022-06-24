@@ -1,16 +1,12 @@
 package filipkupanovac.pokedex_firered.pokedex.ui.recycler_items
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import filipkupanovac.pokedex_firered.pokedex.R
 import filipkupanovac.pokedex_firered.pokedex.databinding.ItemPokemonBinding
 import filipkupanovac.pokedex_firered.pokedex.ui.model.PokeObject
-import filipkupanovac.pokedex_firered.pokedex.ui.model.Pokemon
-import filipkupanovac.pokedex_firered.pokedex.ui.model.PokemonCollection
 
 class PokemonAdapter : RecyclerView.Adapter<PokemonViewHolder>() {
 

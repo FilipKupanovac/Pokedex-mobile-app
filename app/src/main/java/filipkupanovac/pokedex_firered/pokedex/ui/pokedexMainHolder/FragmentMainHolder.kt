@@ -2,7 +2,6 @@ package filipkupanovac.pokedex_firered.pokedex.ui.pokedexMainHolder
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +25,7 @@ class FragmentMainHolder : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMainHolderBinding.inflate(inflater, container, false)
 
         activityContext = activity?.applicationContext!!

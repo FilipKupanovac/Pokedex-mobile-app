@@ -25,11 +25,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <!--
-    OVO JE IŠLO GORE U IMAGEVIEW
-    app:layout_constraintTop_toBottomOf="@+id/name_pokemon_details"
-    android:background="@color/black"
-    android:src="@drawable/ic_launcher_foreground"-->
 
     <TextView
         android:id="@+id/description_pokemon_details"
@@ -38,4 +33,22 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image_view_details_pokemon" />
+
+    <ImageView
+        android:id="@+id/image_view_type1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/image_view_type2"
+        app:layout_constraintTop_toBottomOf="@+id/description_pokemon_details" />
+
+    <ImageView
+        android:id="@+id/image_view_type2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toRightOf="@+id/image_view_type1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description_pokemon_details" />
 </androidx.constraintlayout.widget.ConstraintLayout>

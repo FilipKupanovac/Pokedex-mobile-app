@@ -3,9 +3,11 @@ package filipkupanovac.pokedex_firered.pokedex.ui.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import com.bumptech.glide.Glide
 import filipkupanovac.pokedex_firered.pokedex.R
 import filipkupanovac.pokedex_firered.pokedex.databinding.ActivityPokemonDetailsBinding
+import filipkupanovac.pokedex_firered.pokedex.helpers.TypeIconRetriever
 import filipkupanovac.pokedex_firered.pokedex.ui.model.PokeObject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -41,7 +43,7 @@ class PokemonDetailsActivity : AppCompatActivity() {
             "${detailsViewModel.pokemon.value?.id} ${detailsViewModel.pokemon.value?.name?.replaceFirstChar { it.uppercase() }}"
 
         //Set types
-        var stringBuilder: StringBuilder = java.lang.StringBuilder()
+        val stringBuilder: StringBuilder = java.lang.StringBuilder()
         detailsViewModel.pokemon.value?.types?.forEach { type ->
             stringBuilder.append(type.type.name.replaceFirstChar {
                 it.uppercase()
@@ -52,10 +54,32 @@ class PokemonDetailsActivity : AppCompatActivity() {
         binding.descriptionPokemonDetails.text = "My Types are: $stringBuilder"
 
         //Set ImageView
-        Glide.with(applicationContext).load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${detailsViewModel.pokemon.value?.id}.png").placeholder(
-            R.drawable.pokeball_closed //TODO(OVDJE POSTAIVTI POKELOPTU)
-        ).into(binding.imageViewDetailsPokemon)
+        Glide.with(applicationContext)
+            .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${detailsViewModel.pokemon.value?.id}.png")
+            .placeholder(
+                R.drawable.pokeball_closed
+            ).into(binding.imageViewDetailsPokemon)
+
+        //Set type ImageViews
+        val typesList: MutableList<String> = mutableListOf()
+        detailsViewModel.pokemon.value?.types?.forEach { typeContainer ->
+            typesList.add(typeContainer.type.name)
+        }
+        setTypeImageViews(typesList)
     }
+
+    private fun setTypeImageViews(typesList: List<String>) {
+        val typeIconRetriever = TypeIconRetriever()
+
+        if (typesList.size == 1) {
+            Glide.with(applicationContext).load(typeIconRetriever.retrieveIconURI(typesList[0])).placeholder(null).into(binding.imageViewType1)
+            binding.imageViewType2.visibility = View.GONE
+        } else {
+            Glide.with(applicationContext).load(typeIconRetriever.retrieveIconURI(typesList[0])).placeholder(null).into(binding.imageViewType1)
+            Glide.with(applicationContext).load(typeIconRetriever.retrieveIconURI(typesList[1])).placeholder(null).into(binding.imageViewType2)
+        }
+    }
+
 
     private fun getExtra() {
         pokemonId = intent.getSerializableExtra("pokemon") as PokeObject
@@ -68,6 +92,6 @@ class PokemonDetailsActivity : AppCompatActivity() {
     }
 
     companion object {
-        val TAG = "PokemonDetailsActivity"
+        const val TAG = "PokemonDetailsActivity"
     }
 }
