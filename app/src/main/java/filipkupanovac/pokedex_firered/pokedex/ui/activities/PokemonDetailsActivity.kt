@@ -7,7 +7,7 @@ import android.view.View
 import com.bumptech.glide.Glide
 import filipkupanovac.pokedex_firered.pokedex.R
 import filipkupanovac.pokedex_firered.pokedex.databinding.ActivityPokemonDetailsBinding
-import filipkupanovac.pokedex_firered.pokedex.helpers.TypeIconRetriever
+import filipkupanovac.pokedex_firered.pokedex.helpers.retrieveIconURI
 import filipkupanovac.pokedex_firered.pokedex.ui.model.PokeObject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -69,14 +69,13 @@ class PokemonDetailsActivity : AppCompatActivity() {
     }
 
     private fun setTypeImageViews(typesList: List<String>) {
-        val typeIconRetriever = TypeIconRetriever()
 
         if (typesList.size == 1) {
-            Glide.with(applicationContext).load(typeIconRetriever.retrieveIconURI(typesList[0])).placeholder(null).into(binding.imageViewType1)
+            Glide.with(applicationContext).load(retrieveIconURI(typesList[0])).placeholder(null).into(binding.imageViewType1)
             binding.imageViewType2.visibility = View.GONE
         } else {
-            Glide.with(applicationContext).load(typeIconRetriever.retrieveIconURI(typesList[0])).placeholder(null).into(binding.imageViewType1)
-            Glide.with(applicationContext).load(typeIconRetriever.retrieveIconURI(typesList[1])).placeholder(null).into(binding.imageViewType2)
+            Glide.with(applicationContext).load(retrieveIconURI(typesList[0])).placeholder(null).into(binding.imageViewType1)
+            Glide.with(applicationContext).load(retrieveIconURI(typesList[1])).placeholder(null).into(binding.imageViewType2)
         }
     }
 
