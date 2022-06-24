@@ -18,6 +18,7 @@ class PokedexApp : Application() {
             androidContext(this@PokedexApp)
             modules(
                 listOf(
+                    prefsModule,
                     viewModelModule,
                 )
             )

@@ -21,7 +21,8 @@ class FragmentSignIn : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        //NavigateToPokedex()
+        if (signInViewModel.isUserSignedIn())
+            NavigateToPokedex()
 
         binding = FragmentSignInBinding.inflate(
             inflater, container, false

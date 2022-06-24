@@ -4,9 +4,10 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import filipkupanovac.pokedex_firered.pokedex.data.SharedPreferenceManager
 import kotlin.coroutines.coroutineContext
 
-class RegisterViewModel() : ViewModel() {
+class RegisterViewModel(private val prefsManager: SharedPreferenceManager) : ViewModel() {
 
     private val MINIMUM_PASSWORD_LENGTH = 4
 
@@ -25,6 +26,7 @@ class RegisterViewModel() : ViewModel() {
         if (email.contains("@") && username.isNotBlank()) {
             //POKUŠAJ REGISTRACIJE NA PRAVI SERVIS
             _isUserRegistered.postValue(true)
+            prefsManager.saveUser(username)
         }
 
     }

@@ -10,11 +10,14 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import filipkupanovac.pokedex_firered.pokedex.databinding.FragmentProfileInfoBinding
+import filipkupanovac.pokedex_firered.pokedex.di.prefsModule
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class FragmentProfileInfo : Fragment() {
 
     private lateinit var binding: FragmentProfileInfoBinding
+    private val profileInfoViewModel : ProfileInfoViewModel by viewModel()
     private val args: FragmentProfileInfoArgs by navArgs()
 
     override fun onCreateView(
@@ -26,10 +29,14 @@ class FragmentProfileInfo : Fragment() {
             inflater, container, false
         )
 
-        Log.d("POPUŠIMI", parentFragmentManager.backStackEntryCount.toString())
+        setContent()
         setClickListeners()
 
         return binding.root
+    }
+
+    private fun setContent() {
+        binding.textViewUsernameInfo.text = profileInfoViewModel.getUsername()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,6 +69,7 @@ class FragmentProfileInfo : Fragment() {
     }
 
     private fun logOut(message: CharSequence = "LOGGED OUT") {
+        profileInfoViewModel.signOutUser()
         val action = FragmentProfileInfoDirections.actionFragmentProfileInfoToFragmentSignIn()
         findNavController().navigate(action)
         Toast.makeText(activity?.applicationContext, message, Toast.LENGTH_SHORT).show()

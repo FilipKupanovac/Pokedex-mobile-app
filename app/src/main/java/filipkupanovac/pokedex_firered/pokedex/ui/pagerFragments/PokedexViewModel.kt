@@ -5,11 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import filipkupanovac.pokedex_firered.pokedex.data.RetrofitInstance
+import filipkupanovac.pokedex_firered.pokedex.data.SharedPreferenceManager
 import filipkupanovac.pokedex_firered.pokedex.ui.model.PokeObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class PokedexViewModel : ViewModel() {
+class PokedexViewModel(private val prefsManager: SharedPreferenceManager) : ViewModel() {
 
     private val _pokemonCollection: MutableLiveData<List<PokeObject>> = MutableLiveData()
     val pokemonCollection: LiveData<List<PokeObject>>

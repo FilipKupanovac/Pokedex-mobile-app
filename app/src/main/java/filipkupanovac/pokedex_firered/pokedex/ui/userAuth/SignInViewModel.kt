@@ -4,10 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import filipkupanovac.pokedex_firered.pokedex.data.EMPTY_STRING
+import filipkupanovac.pokedex_firered.pokedex.data.SharedPreferenceManager
+import filipkupanovac.pokedex_firered.pokedex.di.prefsModule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class SignInViewModel(/*private val ovdje_će_ići_firebase_repository_varijabla*/) : ViewModel() {
+class SignInViewModel(/*private val ovdje_će_ići_firebase_repository_varijabla*/private val prefsManager: SharedPreferenceManager) : ViewModel() {
 
     private val _isUserSignedIn: MutableLiveData<Boolean> = MutableLiveData()
     val isUserSignedIn: LiveData<Boolean>
@@ -29,9 +32,13 @@ class SignInViewModel(/*private val ovdje_će_ići_firebase_repository_varijabla
 
             if (email.contains("@") && password.length > 3) {
                 _isUserSignedIn.postValue(true)
+                //TODO(ovdje pravog lika stavit)
+                prefsManager.saveUser("ASH KEČAM")
             } else {
                 _isUserSignedIn.postValue(false)
             }
         }
     }
+
+    fun isUserSignedIn() : Boolean = prefsManager.getUser() != EMPTY_STRING
 }
