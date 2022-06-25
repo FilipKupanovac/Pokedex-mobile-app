@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "787207059723",
+    "project_id": "pokedex-rma",
+    "storage_bucket": "pokedex-rma.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:787207059723:android:46a34bdf1c7973a8e04a0e",
+        "android_client_info": {
+          "package_name": "filipkupanovac.pokedex_firered.pokedex"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "787207059723-spoh15g1aapckes1uhbt95csp417bodu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBr1m7uP9Qko3NXCfVi5VgK2_VcIniIa0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "787207059723-spoh15g1aapckes1uhbt95csp417bodu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

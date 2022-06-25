@@ -34,9 +34,11 @@ class FragmentRegister : Fragment() {
     private fun setObservers() {
         registerViewModel.isUserRegistered.observe(viewLifecycleOwner) {
             if (it) {
+                Log.d(TAG, "setObservers: TUSMO")
                 NavigateToPokedex()
             } else {
-                Toast.makeText(activity, "Registration failed", Toast.LENGTH_LONG).show()
+                Log.d(TAG, "setObservers: TUNISMO")
+                //Toast.makeText(activity, "Registration failed", Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -66,7 +68,7 @@ class FragmentRegister : Fragment() {
     }
 
     companion object {
-        val TAG = "SignInFragment"
+        val TAG = "RegisterFragment"
 
         fun create(): Fragment {
             return FragmentSignIn()

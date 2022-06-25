@@ -1,15 +1,22 @@
 package filipkupanovac.pokedex_firered.pokedex.ui.userAuth
 
+import android.os.Looper
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import filipkupanovac.pokedex_firered.pokedex.data.SharedPreferenceManager
+import filipkupanovac.pokedex_firered.pokedex.repositories.FirebaseAuthRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlin.coroutines.coroutineContext
 
-class RegisterViewModel(private val prefsManager: SharedPreferenceManager) : ViewModel() {
-
-    private val MINIMUM_PASSWORD_LENGTH = 4
+class RegisterViewModel(
+    private val firebaseAuthRepository: FirebaseAuthRepository,
+    private val prefsManager: SharedPreferenceManager
+) : ViewModel() {
 
     private val _isUserRegistered: MutableLiveData<Boolean> = MutableLiveData()
     val isUserRegistered: LiveData<Boolean>
@@ -20,14 +27,13 @@ class RegisterViewModel(private val prefsManager: SharedPreferenceManager) : Vie
         username: String,
         password: String
     ) {
-        if (password.length < MINIMUM_PASSWORD_LENGTH) {
-            _isUserRegistered.postValue(false)
-        }
-        if (email.contains("@") && username.isNotBlank()) {
-            //POKUŠAJ REGISTRACIJE NA PRAVI SERVIS
-            _isUserRegistered.postValue(true)
+        viewModelScope.launch(Dispatchers.IO) {
+            Log.d(TAG, "register: UMRI JEBOTE2")
+            firebaseAuthRepository.createNewUser(email, username, password){
+                _isUserRegistered.postValue(it)
+            }
             prefsManager.saveUser(username)
         }
-
     }
+    private val TAG = "RegisterViewModel"
 }

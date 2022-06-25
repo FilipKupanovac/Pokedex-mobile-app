@@ -5,7 +5,7 @@ import filipkupanovac.pokedex_firered.pokedex.PokedexApp
 import java.lang.StringBuilder
 
 class SharedPreferenceManager(
-    private val context: Context
+    /*private val context: Context*/
 ) {
     private val sharedPrefs =
         PokedexApp.application.getSharedPreferences("POKEDEX_SHARED_PREFS", Context.MODE_PRIVATE)

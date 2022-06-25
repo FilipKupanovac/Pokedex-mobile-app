@@ -63,11 +63,11 @@ class PokemonViewHolder(itemView: View, private val isInFavorites: Boolean) :
             if ( //TODO(ZAPRAVO POSTAVI if(favoritesArray.contains(pokemonId))
                 pokemonId == 2 || pokemonId == 4
             ) {
-                binding.recyclerItemFavoriteStar.isActivated = true//.setBackgroundResource(R.drawable.ic_baseline_star_24)
+                binding.recyclerItemFavoriteStar.isActivated = true
             }
 
             binding.recyclerItemFavoriteStar.setOnClickListener {
-                Log.d("HAHA", "bind: HAHA")
+                Log.d("HAHA", "bind: HAHA ${pokemonId}")
                 toggleFavorite(binding.recyclerItemFavoriteStar)
             }
         }
