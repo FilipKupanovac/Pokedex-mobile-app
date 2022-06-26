@@ -32,7 +32,6 @@ class FavoritesViewModel(
 
             if (response.isSuccessful && response.body() != null) {
                 val favoritesList: MutableList<PokeObject> = mutableListOf()
-                Log.d(TAG, "getFavorites: ${prefsManager.getFavorites()}")
                 firestoreRepository.getUserFavorites {
                     parseFavoritesToListInt(it).forEach { favorite ->
                         favoritesList.add(response.body()!!.pokeList[favorite - 1])

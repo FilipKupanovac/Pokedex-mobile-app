@@ -36,8 +36,6 @@ class PokemonDetailsActivity : AppCompatActivity() {
     }
 
     private fun setContent() {
-        Log.d(TAG, "setContent: ${detailsViewModel.pokemon.value}")
-
         //Set name
         binding.namePokemonDetails.text =
             "${detailsViewModel.pokemon.value?.id} ${detailsViewModel.pokemon.value?.name?.replaceFirstChar { it.uppercase() }}"
