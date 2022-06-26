@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import filipkupanovac.pokedex_firered.pokedex.data.RetrofitInstance
 import filipkupanovac.pokedex_firered.pokedex.data.SharedPreferenceManager
+import filipkupanovac.pokedex_firered.pokedex.helpers.parseFavoritesToListInt
 import filipkupanovac.pokedex_firered.pokedex.repositories.FirestoreRepository
 import filipkupanovac.pokedex_firered.pokedex.ui.model.Pokemon
 import kotlinx.coroutines.Dispatchers
@@ -29,5 +30,16 @@ class DetailsViewModel(
                 _pokemon.postValue(response.body())
             }
         }
+    }
+
+    fun saveUserFavoriteId(pokemonId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            firestoreRepository.saveFavoritePokemonId(pokemonId)
+            prefsManager.saveFavoritePokemonId(pokemonId)
+        }
+    }
+
+    fun isFavorite(pokemonId: Int) : Boolean{
+            return parseFavoritesToListInt(prefsManager.getFavorites()).contains(pokemonId)
     }
 }

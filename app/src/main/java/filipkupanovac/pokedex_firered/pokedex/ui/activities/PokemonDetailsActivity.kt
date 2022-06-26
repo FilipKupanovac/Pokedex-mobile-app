@@ -22,11 +22,19 @@ class PokemonDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         getExtra()
+        binding = ActivityPokemonDetailsBinding.inflate(layoutInflater)
         detailsViewModel.getSpecificPokemon(id)
         setObservers()
+        setOnClickListeners()
 
-        binding = ActivityPokemonDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+    }
+
+    private fun setOnClickListeners() {
+        binding.pokemonDetailsFavoriteStar.setOnClickListener {
+            detailsViewModel.saveUserFavoriteId(id)
+            it.isActivated = !it.isActivated
+        }
     }
 
     private fun setObservers() {
@@ -64,6 +72,10 @@ class PokemonDetailsActivity : AppCompatActivity() {
             typesList.add(typeContainer.type.name)
         }
         setTypeImageViews(typesList)
+
+        //Set favorite star
+        val star = binding.pokemonDetailsFavoriteStar
+        star.isActivated = detailsViewModel.isFavorite(id)
     }
 
     private fun setTypeImageViews(typesList: List<String>) {
