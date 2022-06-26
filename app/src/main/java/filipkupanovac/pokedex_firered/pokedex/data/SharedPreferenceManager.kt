@@ -1,13 +1,12 @@
 package filipkupanovac.pokedex_firered.pokedex.data
 
 import android.content.Context
+import android.util.Log
 import filipkupanovac.pokedex_firered.pokedex.PokedexApp
 import filipkupanovac.pokedex_firered.pokedex.helpers.parseFavoritesListToString
 import java.lang.StringBuilder
 
-class SharedPreferenceManager(
-    /*private val context: Context*/
-) {
+class SharedPreferenceManager() {
     private val sharedPrefs =
         PokedexApp.application.getSharedPreferences("POKEDEX_SHARED_PREFS", Context.MODE_PRIVATE)
     private val editor = sharedPrefs.edit()
@@ -31,18 +30,27 @@ class SharedPreferenceManager(
     }
 
     fun saveFavoritePokemonId(id: Int) {
+        Log.d(TAG, "PREFANI ID: $id")
         val currentFavorites = sharedPrefs.getString(FAVORITE, "")
         val favoritesArray = currentFavorites?.split(',')
         val favorites: MutableList<Int> = mutableListOf()
         favoritesArray?.forEach {
-            favorites.add(it.toInt())
+            if (it != "")
+                favorites.add(it.toInt())
         }
-
-        toggleFavorite(id, favorites)
-
+        Log.d(TAG, "saveFavoritePokemonId1: $favoritesArray")
+        //toggleFavorite(id, favorites)
+        if (favorites.contains(id)) {
+            favorites.remove(id)
+        } else {
+            favorites.add(id)
+            favorites.sort()
+        }
+        Log.d(TAG, "saveFavoritePokemonId2: $favoritesArray")
         val updatedFavorites: String = parseFavoritesListToString(favorites)
 
         editor.putString(FAVORITE, updatedFavorites)
+        Log.d(TAG, "saveFavoritePokemonId3: $updatedFavorites")
     }
 
     fun saveFavorites(favorites: String) {
@@ -70,6 +78,10 @@ class SharedPreferenceManager(
 
     fun getUserEmail(): String {
         return sharedPrefs.getString(EMAIL, EMPTY_STRING).toString()
+    }
+
+    companion object {
+        private const val TAG = "TA-A-A-A-A-A-AG"
     }
 }
 

@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import filipkupanovac.pokedex_firered.pokedex.databinding.FragmentPokedexBinding
 import filipkupanovac.pokedex_firered.pokedex.ui.activities.PokemonDetailsActivity
@@ -16,7 +17,7 @@ import filipkupanovac.pokedex_firered.pokedex.ui.recycler_items.OnPokemonSelecte
 import filipkupanovac.pokedex_firered.pokedex.ui.recycler_items.PokemonAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class FragmentPokedex : Fragment(), OnPokemonSelectedListener {
+class FragmentPokedex : Fragment(), OnPokemonSelectedListener, PokemonAdapter.OnToggleFavoriteClickListener  {
 
     private val pokedexViewModel: PokedexViewModel by viewModel()
     private var _binding: FragmentPokedexBinding? = null
@@ -73,7 +74,7 @@ class FragmentPokedex : Fragment(), OnPokemonSelectedListener {
             context, LinearLayoutManager.VERTICAL, false
         )
 
-        pokemonAdapter = PokemonAdapter()
+        pokemonAdapter = PokemonAdapter(this)
         pokemonAdapter.pokemonSelectedListener = this
         binding.pokedexRecyclerView.adapter = pokemonAdapter
     }
@@ -124,5 +125,9 @@ class FragmentPokedex : Fragment(), OnPokemonSelectedListener {
 
     companion object {
         const val TAG = "FragmentPokedex"
+    }
+
+    override fun onToggleFavoriteClick(favoriteId: Int) {
+        pokedexViewModel.saveUserFavoriteId(favoriteId)
     }
 }

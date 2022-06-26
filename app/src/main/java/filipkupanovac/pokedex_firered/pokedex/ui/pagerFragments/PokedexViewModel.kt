@@ -43,6 +43,12 @@ class PokedexViewModel(
         }
     }
 
+    fun saveUserFavoriteId(pokemonId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            firestoreRepository.saveFavoritePokemonId(pokemonId)
+        }
+    }
+
     fun filterPokemons(filter: String): List<PokeObject> {
         val filteredList = pokemonCollection.value?.filter {
             it.name.contains(filter)

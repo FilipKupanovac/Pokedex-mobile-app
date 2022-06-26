@@ -13,7 +13,7 @@ import filipkupanovac.pokedex_firered.pokedex.ui.recycler_items.OnPokemonSelecte
 import filipkupanovac.pokedex_firered.pokedex.ui.recycler_items.PokemonAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class FragmentFavorites : Fragment(), OnPokemonSelectedListener {
+class FragmentFavorites : Fragment(), OnPokemonSelectedListener, PokemonAdapter.OnToggleFavoriteClickListener {
 
     private val favoritesViewModel: FavoritesViewModel by viewModel()
     private var _binding: FragmentFavoritesBinding? = null
@@ -48,7 +48,7 @@ class FragmentFavorites : Fragment(), OnPokemonSelectedListener {
         binding.favoritesRecyclerView.layoutManager = LinearLayoutManager(
             context, LinearLayoutManager.VERTICAL, false
         )
-        pokemonAdapter = PokemonAdapter(true)
+        pokemonAdapter = PokemonAdapter(this,true)
         pokemonAdapter.pokemonSelectedListener = this
         binding.favoritesRecyclerView.adapter = pokemonAdapter
     }
@@ -72,5 +72,9 @@ class FragmentFavorites : Fragment(), OnPokemonSelectedListener {
             pokemonAdapter.setPokemons(
                 favoritesViewModel.favoritePokemonCollection.value!!
             )
+    }
+
+    override fun onToggleFavoriteClick(favoriteId: Int) {
+
     }
 }
