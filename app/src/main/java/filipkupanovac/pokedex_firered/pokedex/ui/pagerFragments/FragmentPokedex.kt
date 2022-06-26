@@ -34,6 +34,7 @@ class FragmentPokedex : Fragment(), OnPokemonSelectedListener {
         )
 
         pokedexViewModel.getPokemon(151)
+        pokedexViewModel.getUserFavorites()
         setupRecyclerView()
         setSearchBarListener()
         setObservers()
@@ -43,7 +44,12 @@ class FragmentPokedex : Fragment(), OnPokemonSelectedListener {
 
     private fun setObservers() {
         pokedexViewModel.pokemonCollection.observe(viewLifecycleOwner) {
-            updateData()
+            if (pokedexViewModel.arePokemonFetched && pokedexViewModel.areFavoritesFetched)
+                updateData()
+        }
+        pokedexViewModel.userFavorites.observe(viewLifecycleOwner) {
+            if (pokedexViewModel.arePokemonFetched && pokedexViewModel.areFavoritesFetched)
+                updateData()
         }
     }
 
@@ -102,6 +108,7 @@ class FragmentPokedex : Fragment(), OnPokemonSelectedListener {
     }
 
     private fun updateData() {
+        Log.d(TAG, "updateData: UČITANI OBOJE")
         if (binding.pokedexSearchbar.text.isNotBlank()) {
             pokemonAdapter.setPokemons(
                 pokedexViewModel.filterPokemons(

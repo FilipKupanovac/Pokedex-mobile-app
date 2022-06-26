@@ -53,16 +53,9 @@ class FragmentFavorites : Fragment(), OnPokemonSelectedListener {
         binding.favoritesRecyclerView.adapter = pokemonAdapter
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun OnPokemonSelected(id: Int) {
-        val pokemonUriArray = favoritesViewModel.filterPokemons("ol")[id].url.split('/')
-        val pokemonId = pokemonUriArray[pokemonUriArray.size-2].toInt()
-
         val intent = Intent(activity, PokemonDetailsActivity::class.java).apply {
-            putExtra("pokemon",favoritesViewModel.favoritePokemonCollection.value?.get(pokemonId-1))
+            putExtra("pokemon", favoritesViewModel.favoritePokemonCollection.value?.get(id))
         }
 
         startActivity(intent)
@@ -77,7 +70,7 @@ class FragmentFavorites : Fragment(), OnPokemonSelectedListener {
     private fun updateData() {
         if (!favoritesViewModel.favoritePokemonCollection.value.isNullOrEmpty())
             pokemonAdapter.setPokemons(
-                favoritesViewModel.filterPokemons("ol")
+                favoritesViewModel.favoritePokemonCollection.value!!
             )
     }
 }

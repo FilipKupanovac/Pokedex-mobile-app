@@ -1,19 +1,19 @@
 package filipkupanovac.pokedex_firered.pokedex.ui.recycler_items
 
-import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import filipkupanovac.pokedex_firered.pokedex.R
+import filipkupanovac.pokedex_firered.pokedex.data.SharedPreferenceManager
 import filipkupanovac.pokedex_firered.pokedex.databinding.ItemPokemonBinding
+import filipkupanovac.pokedex_firered.pokedex.helpers.parseFavoritesToListInt
 import filipkupanovac.pokedex_firered.pokedex.ui.model.PokeObject
 
 class PokemonAdapter(private val isInFavorites: Boolean = false) :
     RecyclerView.Adapter<PokemonViewHolder>() {
+
 
     val pokémons = mutableListOf<PokeObject>()
     var pokemonSelectedListener: OnPokemonSelectedListener? = null
@@ -45,7 +45,8 @@ class PokemonAdapter(private val isInFavorites: Boolean = false) :
 
 class PokemonViewHolder(itemView: View, private val isInFavorites: Boolean) :
     RecyclerView.ViewHolder(itemView) {
-    val binding = ItemPokemonBinding.bind(itemView)
+    val sharedPrefs = SharedPreferenceManager()
+    private val binding = ItemPokemonBinding.bind(itemView)
     fun bind(pokemon: PokeObject) {
         binding.pokemonNameTextView.text = pokemon.name.replaceFirstChar { it.uppercase() }
 
@@ -60,22 +61,24 @@ class PokemonViewHolder(itemView: View, private val isInFavorites: Boolean) :
         if (isInFavorites) {
             binding.recyclerItemFavoriteStar.visibility = View.GONE
         } else {
-            if ( //TODO(ZAPRAVO POSTAVI if(favoritesArray.contains(pokemonId))
-                pokemonId == 2 || pokemonId == 4
-            ) {
-                binding.recyclerItemFavoriteStar.isActivated = true
+            val userFavorites = parseFavoritesToListInt(sharedPrefs.getFavorites())
+            var bool = false
+            userFavorites.forEach { fav ->
+                if (fav == pokemonId)
+                    bool = true
             }
+            binding.recyclerItemFavoriteStar.isActivated = bool
 
             binding.recyclerItemFavoriteStar.setOnClickListener {
-                Log.d("HAHA", "bind: HAHA ${pokemonId}")
-                toggleFavorite(binding.recyclerItemFavoriteStar)
+                toggleFavorite(binding.recyclerItemFavoriteStar, pokemonId)
             }
         }
     }
 
-    private fun toggleFavorite(iv: ImageView) {
+    private fun toggleFavorite(iv: ImageView, pokemonId: Int) {
         //TODO(POSTAVITI U SHAREDPREFSE I FIREBASE FAVORITE)
         iv.isActivated = !iv.isActivated
+
     }
 
 }

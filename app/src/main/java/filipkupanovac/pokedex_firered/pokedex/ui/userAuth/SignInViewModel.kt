@@ -9,10 +9,15 @@ import com.google.firebase.auth.FirebaseUser
 import filipkupanovac.pokedex_firered.pokedex.data.EMPTY_STRING
 import filipkupanovac.pokedex_firered.pokedex.data.SharedPreferenceManager
 import filipkupanovac.pokedex_firered.pokedex.repositories.FirebaseAuthRepository
+import filipkupanovac.pokedex_firered.pokedex.repositories.FirestoreRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class SignInViewModel(private val firebaseAuthRepository: FirebaseAuthRepository, private val prefsManager: SharedPreferenceManager) : ViewModel() {
+class SignInViewModel(
+    private val firebaseAuthRepository: FirebaseAuthRepository,
+    private val prefsManager: SharedPreferenceManager,
+    private val firestoreRepository: FirestoreRepository
+) : ViewModel() {
 
     private val _isUserSignedIn: MutableLiveData<Boolean> = MutableLiveData()
     val isUserSignedIn: LiveData<Boolean>
@@ -28,23 +33,17 @@ class SignInViewModel(private val firebaseAuthRepository: FirebaseAuthRepository
 
     fun signIn(email: String, password: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            /*
-            * PRIJAVA USERA IZ BAZE
-            *
-            * Povratna vrijednost:
-            *   user postoji -> promijeni live data na true
-            *   ne postoji -> live data na false
-            * */
-
-            val currentUser = firebaseAuthRepository.authenticateUser(email,password)
-            _isUserSignedIn.postValue(currentUser!=null)
-            if(currentUser != null){
-                Log.d(TAG, "signIn: ${currentUser.displayName}")
+            val currentUser = firebaseAuthRepository.authenticateUser(email, password)
+            _isUserSignedIn.postValue(currentUser != null)
+            if (currentUser != null) {
                 currentUser.displayName?.let { prefsManager.saveUser(it) }
+                currentUser.email?.let {prefsManager.saveUserEmail(it)}
             }
+            //firestoreRepository.getUserFavorites(email)
         }
     }
+
     private val TAG = "SignInViewModel"
 
-    fun isUserSignedIn() : Boolean = prefsManager.getUser() != EMPTY_STRING
+    fun isUserSignedIn(): Boolean = prefsManager.getUser() != EMPTY_STRING
 }

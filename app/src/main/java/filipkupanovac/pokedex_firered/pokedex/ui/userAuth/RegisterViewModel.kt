@@ -9,13 +9,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import filipkupanovac.pokedex_firered.pokedex.data.SharedPreferenceManager
 import filipkupanovac.pokedex_firered.pokedex.repositories.FirebaseAuthRepository
+import filipkupanovac.pokedex_firered.pokedex.repositories.FirestoreRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.coroutines.coroutineContext
 
 class RegisterViewModel(
     private val firebaseAuthRepository: FirebaseAuthRepository,
-    private val prefsManager: SharedPreferenceManager
+    private val prefsManager: SharedPreferenceManager,
+    private val firestoreRepository: FirestoreRepository
 ) : ViewModel() {
 
     private val _isUserRegistered: MutableLiveData<Boolean> = MutableLiveData()
@@ -28,12 +30,14 @@ class RegisterViewModel(
         password: String
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            Log.d(TAG, "register: UMRI JEBOTE2")
-            firebaseAuthRepository.createNewUser(email, username, password){
+            firebaseAuthRepository.createNewUser(email, username, password) {
                 _isUserRegistered.postValue(it)
             }
+            firestoreRepository.addNewUserFavorites(email)
             prefsManager.saveUser(username)
+            prefsManager.saveUserEmail(email)
         }
     }
+
     private val TAG = "RegisterViewModel"
 }

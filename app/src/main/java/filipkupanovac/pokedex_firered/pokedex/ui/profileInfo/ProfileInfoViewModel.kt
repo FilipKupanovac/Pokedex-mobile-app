@@ -6,22 +6,22 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import filipkupanovac.pokedex_firered.pokedex.data.EMPTY_STRING
 import filipkupanovac.pokedex_firered.pokedex.data.SharedPreferenceManager
+import filipkupanovac.pokedex_firered.pokedex.repositories.FirestoreRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ProfileInfoViewModel(private val prefsManager: SharedPreferenceManager) : ViewModel() {
-    //private val _username: MutableLiveData<String> = MutableLiveData()
-    //val username: LiveData<String>
-    //    get() = _username
+class ProfileInfoViewModel(
+    private val prefsManager: SharedPreferenceManager,
+    private val firestoreRepository: FirestoreRepository
+) : ViewModel() {
 
-    fun getUsername() : String {
-        /*viewModelScope.launch(Dispatchers.IO) {
-            _username.postValue(prefsManager.getUser())
-        }*/
+    fun getUsername(): String {
         return prefsManager.getUser()
     }
 
-    fun signOutUser(){
+    fun signOutUser() {
         prefsManager.saveUser(EMPTY_STRING)
+        prefsManager.saveUserEmail(EMPTY_STRING)
+        prefsManager.saveFavorites(EMPTY_STRING)
     }
 }

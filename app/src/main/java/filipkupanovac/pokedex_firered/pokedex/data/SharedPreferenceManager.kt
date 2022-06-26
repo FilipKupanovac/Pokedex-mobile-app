@@ -2,6 +2,7 @@ package filipkupanovac.pokedex_firered.pokedex.data
 
 import android.content.Context
 import filipkupanovac.pokedex_firered.pokedex.PokedexApp
+import filipkupanovac.pokedex_firered.pokedex.helpers.parseFavoritesListToString
 import java.lang.StringBuilder
 
 class SharedPreferenceManager(
@@ -12,7 +13,6 @@ class SharedPreferenceManager(
     private val editor = sharedPrefs.edit()
 
     fun saveUser(user: String) {
-        //TODO(after firebase authentication get user from firebase to put here. it is important for signin because there user doesn't type his username)
         editor.putString(USER_ID, user)
         editor.apply()
     }
@@ -40,26 +40,18 @@ class SharedPreferenceManager(
 
         toggleFavorite(id, favorites)
 
-        val updatedFavorites: String = setArrayToString(favorites)
+        val updatedFavorites: String = parseFavoritesListToString(favorites)
 
         editor.putString(FAVORITE, updatedFavorites)
     }
 
-    fun getFavorites(): String {
-        return sharedPrefs.getString(FAVORITE, EMPTY_STRING).toString()
+    fun saveFavorites(favorites: String) {
+        editor.putString(FAVORITE, favorites)
+        editor.apply()
     }
 
-    private fun setArrayToString(favorites: MutableList<Int>): String {
-        val updatedFavorites = StringBuilder()
-        favorites.forEach {
-            updatedFavorites.append(it)
-            updatedFavorites.append(",")
-        }
-        updatedFavorites.deleteRange(
-            updatedFavorites.count() - 1,
-            updatedFavorites.count()
-        ) //remove trailing comma
-        return updatedFavorites.toString()
+    fun getFavorites(): String {
+        return sharedPrefs.getString(FAVORITE, EMPTY_STRING).toString()
     }
 
     private fun toggleFavorite(id: Int, favorites: MutableList<Int>) {
@@ -70,9 +62,19 @@ class SharedPreferenceManager(
             favorites.sort()
         }
     }
+
+    fun saveUserEmail(email: String) {
+        editor.putString(EMAIL, email)
+        editor.apply()
+    }
+
+    fun getUserEmail(): String {
+        return sharedPrefs.getString(EMAIL, EMPTY_STRING).toString()
+    }
 }
 
 const val USER_ID = "userId"
+const val EMAIL = "email"
 const val SEARCHBAR_VALUE = "searchbarValue"
 const val FAVORITE = "favorite"
 const val EMPTY_STRING = ""
