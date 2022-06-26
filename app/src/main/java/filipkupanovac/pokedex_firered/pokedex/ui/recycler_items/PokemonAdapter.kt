@@ -6,15 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.FirebaseFirestore
 import filipkupanovac.pokedex_firered.pokedex.R
 import filipkupanovac.pokedex_firered.pokedex.data.SharedPreferenceManager
 import filipkupanovac.pokedex_firered.pokedex.databinding.ItemPokemonBinding
 import filipkupanovac.pokedex_firered.pokedex.helpers.parseFavoritesToListInt
-import filipkupanovac.pokedex_firered.pokedex.repositories.FirestoreRepository
 import filipkupanovac.pokedex_firered.pokedex.ui.model.PokeObject
 
-class PokemonAdapter(private val onToggleFavoriteClickListener: OnToggleFavoriteClickListener, private val isInFavorites: Boolean = false) :
+class PokemonAdapter(
+    private val onToggleFavoriteClickListener: OnToggleFavoriteClickListener,
+    private val isInFavorites: Boolean = false
+) :
     RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() {
 
 
@@ -80,8 +81,6 @@ class PokemonAdapter(private val onToggleFavoriteClickListener: OnToggleFavorite
         private fun toggleFavorite(iv: ImageView, pokemonId: Int) {
             iv.isActivated = !iv.isActivated
             sharedPrefs.saveFavoritePokemonId(pokemonId)
-            //Log.d("SHAREANI PREFSI", "toggleFavorite: ${sharedPrefs.getFavorites()}")
-            //firestoreRepository.saveFavoritePokemonId(pokemonId)
             onToggleFavoriteClickListener.onToggleFavoriteClick(pokemonId)
         }
 

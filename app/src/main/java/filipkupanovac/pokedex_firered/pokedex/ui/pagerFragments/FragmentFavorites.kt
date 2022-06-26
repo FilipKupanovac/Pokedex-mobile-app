@@ -2,6 +2,7 @@ package filipkupanovac.pokedex_firered.pokedex.ui.pagerFragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,8 @@ import filipkupanovac.pokedex_firered.pokedex.ui.recycler_items.OnPokemonSelecte
 import filipkupanovac.pokedex_firered.pokedex.ui.recycler_items.PokemonAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class FragmentFavorites : Fragment(), OnPokemonSelectedListener, PokemonAdapter.OnToggleFavoriteClickListener {
+class FragmentFavorites : Fragment(), OnPokemonSelectedListener,
+    PokemonAdapter.OnToggleFavoriteClickListener {
 
     private val favoritesViewModel: FavoritesViewModel by viewModel()
     private var _binding: FragmentFavoritesBinding? = null
@@ -31,6 +33,7 @@ class FragmentFavorites : Fragment(), OnPokemonSelectedListener, PokemonAdapter.
         )
 
         favoritesViewModel.getFavorites()
+        favoritesViewModel.loadFavorites()
 
         setupRecyclerView()
         setObservers()
@@ -40,6 +43,11 @@ class FragmentFavorites : Fragment(), OnPokemonSelectedListener, PokemonAdapter.
 
     private fun setObservers() {
         favoritesViewModel.favoritePokemonCollection.observe(viewLifecycleOwner) {
+            Log.d("TAG", "updateData1: $it")
+            updateData()
+        }
+        favoritesViewModel.areFavoritesLoaded.observe(viewLifecycleOwner) {
+            Log.d("TAG", "updateData2: $it")
             updateData()
         }
     }
@@ -48,7 +56,7 @@ class FragmentFavorites : Fragment(), OnPokemonSelectedListener, PokemonAdapter.
         binding.favoritesRecyclerView.layoutManager = LinearLayoutManager(
             context, LinearLayoutManager.VERTICAL, false
         )
-        pokemonAdapter = PokemonAdapter(this,true)
+        pokemonAdapter = PokemonAdapter(this, true)
         pokemonAdapter.pokemonSelectedListener = this
         binding.favoritesRecyclerView.adapter = pokemonAdapter
     }
@@ -63,18 +71,30 @@ class FragmentFavorites : Fragment(), OnPokemonSelectedListener, PokemonAdapter.
 
     override fun onResume() {
         super.onResume()
+        favoritesViewModel.loadFavorites()
         updateData()
 
     }
 
     private fun updateData() {
+        Log.d("TAG", "updateData: ${favoritesViewModel.favoritePokemonCollection.value}")
         if (!favoritesViewModel.favoritePokemonCollection.value.isNullOrEmpty())
             pokemonAdapter.setPokemons(
                 favoritesViewModel.favoritePokemonCollection.value!!
             )
+
     }
 
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        Log.d(TAG, "setUserVisibleHint: POSTAO SAM VISIBLE")
+        super.setUserVisibleHint(isVisibleToUser)
+        if(userVisibleHint){
+            favoritesViewModel.getFavorites()
+            favoritesViewModel.loadFavorites()
+        }
+    }
     override fun onToggleFavoriteClick(favoriteId: Int) {
 
     }
+    private val TAG = "FragmentFavorites"
 }

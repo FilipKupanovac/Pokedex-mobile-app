@@ -1,10 +1,6 @@
 package filipkupanovac.pokedex_firered.pokedex.repositories
 
-import android.util.Log
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QueryDocumentSnapshot
-import com.google.firebase.firestore.QuerySnapshot
 import filipkupanovac.pokedex_firered.pokedex.data.SharedPreferenceManager
 import filipkupanovac.pokedex_firered.pokedex.helpers.parseFavoritesListToString
 import filipkupanovac.pokedex_firered.pokedex.helpers.parseFavoritesToListInt
@@ -24,7 +20,6 @@ class FirestoreRepository(
                             if (document.get("email")
                                     ?.equals(sharedPreferenceManager.getUserEmail()) == true
                             ) {
-                                Log.d(TAG, "getUserFavorites SUCK: ${document.get("favorites")}")
                                 onResult(document.get("favorites").toString())
                                 sharedPreferenceManager.saveFavorites(
                                     document.get("favorites").toString()
@@ -33,16 +28,13 @@ class FirestoreRepository(
                         }
                     }
                     .addOnFailureListener {
-                        Log.d(TAG, "getUserFavorites FAILURE: ${it.message.toString()}")
                     }
             } catch (e: Exception) {
-                Log.d(TAG, "getUserFavorites: FAIL")
             }
         }
     }
 
     suspend fun saveFavoritePokemonId(pokemonId: Int) {
-        var favoritesString = ""
         withContext(Dispatchers.IO) {
             firestore.collection("userFavorites").get()
                 .addOnCompleteListener { result ->
@@ -50,7 +42,7 @@ class FirestoreRepository(
                         if (document.get("email")
                                 ?.equals(sharedPreferenceManager.getUserEmail()) == true
                         ) {
-                            favoritesString = document.get("favorites").toString()
+                            val favoritesString = document.get("favorites").toString()
                             val favoritesList: MutableList<Int> = mutableListOf()
                             favoritesList.addAll(parseFavoritesToListInt(favoritesString))
                             toggleFavorite(pokemonId, favoritesList)

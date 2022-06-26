@@ -23,10 +23,6 @@ class SignInViewModel(
     val isUserSignedIn: LiveData<Boolean>
         get() = _isUserSignedIn
 
-    /*private val _currentUser: MutableLiveData<Int *//*OVDJE_ĆE_IĆI FIREBASEUSER*//*> = MutableLiveData()
-    val currentUser: LiveData<Int*//*OVDJE_ĆE_IĆI FIREBASEUSER*//*>
-        get() = _currentUser*/
-
     private val _currentFirebaseUser: MutableLiveData<FirebaseUser> = MutableLiveData()
     val currentFirebaseUser: LiveData<FirebaseUser>
         get() = _currentFirebaseUser
@@ -39,7 +35,9 @@ class SignInViewModel(
                 currentUser.displayName?.let { prefsManager.saveUser(it) }
                 currentUser.email?.let {prefsManager.saveUserEmail(it)}
             }
-            //firestoreRepository.getUserFavorites(email)
+            firestoreRepository.getUserFavorites{
+                prefsManager.saveFavorites(it)
+            }
         }
     }
 

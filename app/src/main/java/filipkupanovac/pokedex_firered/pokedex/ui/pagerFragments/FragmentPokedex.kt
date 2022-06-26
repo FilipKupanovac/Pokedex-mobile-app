@@ -4,12 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import filipkupanovac.pokedex_firered.pokedex.databinding.FragmentPokedexBinding
 import filipkupanovac.pokedex_firered.pokedex.ui.activities.PokemonDetailsActivity
@@ -17,7 +15,8 @@ import filipkupanovac.pokedex_firered.pokedex.ui.recycler_items.OnPokemonSelecte
 import filipkupanovac.pokedex_firered.pokedex.ui.recycler_items.PokemonAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class FragmentPokedex : Fragment(), OnPokemonSelectedListener, PokemonAdapter.OnToggleFavoriteClickListener  {
+class FragmentPokedex : Fragment(), OnPokemonSelectedListener,
+    PokemonAdapter.OnToggleFavoriteClickListener {
 
     private val pokedexViewModel: PokedexViewModel by viewModel()
     private var _binding: FragmentPokedexBinding? = null
@@ -99,7 +98,6 @@ class FragmentPokedex : Fragment(), OnPokemonSelectedListener, PokemonAdapter.On
 
     override fun onResume() {
         super.onResume()
-        Log.d(TAG, "onResume: ${pokedexViewModel.getSearchbarValue()}")
         updateData()
     }
 
@@ -109,7 +107,6 @@ class FragmentPokedex : Fragment(), OnPokemonSelectedListener, PokemonAdapter.On
     }
 
     private fun updateData() {
-        Log.d(TAG, "updateData: UČITANI OBOJE")
         if (binding.pokedexSearchbar.text.isNotBlank()) {
             pokemonAdapter.setPokemons(
                 pokedexViewModel.filterPokemons(

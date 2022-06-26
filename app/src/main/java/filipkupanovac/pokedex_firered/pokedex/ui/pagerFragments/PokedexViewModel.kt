@@ -1,11 +1,9 @@
 package filipkupanovac.pokedex_firered.pokedex.ui.pagerFragments
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import filipkupanovac.pokedex_firered.pokedex.data.EMPTY_STRING
 import filipkupanovac.pokedex_firered.pokedex.data.RetrofitInstance
 import filipkupanovac.pokedex_firered.pokedex.data.SharedPreferenceManager
 import filipkupanovac.pokedex_firered.pokedex.helpers.parseFavoritesToListInt
@@ -38,7 +36,6 @@ class PokedexViewModel(
             if (response.isSuccessful && response.body() != null) {
                 _pokemonCollection.postValue(response.body()!!.pokeList)
                 arePokemonFetched = true
-                Log.d(TAG, "getPokemon: UČITANI POKEMONI")
             }
         }
     }
@@ -46,6 +43,7 @@ class PokedexViewModel(
     fun saveUserFavoriteId(pokemonId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             firestoreRepository.saveFavoritePokemonId(pokemonId)
+            prefsManager.saveFavoritePokemonId(pokemonId)
         }
     }
 
@@ -67,7 +65,6 @@ class PokedexViewModel(
     fun getUserFavorites() {
         viewModelScope.launch(Dispatchers.IO) {
             firestoreRepository.getUserFavorites {
-                Log.d(TAG, "getUserFavorites: UČITANI FAVORITI")
                 areFavoritesFetched = true
                 _userFavorites.postValue(parseFavoritesToListInt(it))
             }

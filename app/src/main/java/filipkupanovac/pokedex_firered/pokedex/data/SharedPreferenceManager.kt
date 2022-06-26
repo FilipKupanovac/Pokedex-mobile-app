@@ -30,7 +30,6 @@ class SharedPreferenceManager() {
     }
 
     fun saveFavoritePokemonId(id: Int) {
-        Log.d(TAG, "PREFANI ID: $id")
         val currentFavorites = sharedPrefs.getString(FAVORITE, "")
         val favoritesArray = currentFavorites?.split(',')
         val favorites: MutableList<Int> = mutableListOf()
@@ -38,19 +37,15 @@ class SharedPreferenceManager() {
             if (it != "")
                 favorites.add(it.toInt())
         }
-        Log.d(TAG, "saveFavoritePokemonId1: $favoritesArray")
-        //toggleFavorite(id, favorites)
         if (favorites.contains(id)) {
             favorites.remove(id)
         } else {
             favorites.add(id)
             favorites.sort()
         }
-        Log.d(TAG, "saveFavoritePokemonId2: $favoritesArray")
         val updatedFavorites: String = parseFavoritesListToString(favorites)
 
         editor.putString(FAVORITE, updatedFavorites)
-        Log.d(TAG, "saveFavoritePokemonId3: $updatedFavorites")
     }
 
     fun saveFavorites(favorites: String) {
