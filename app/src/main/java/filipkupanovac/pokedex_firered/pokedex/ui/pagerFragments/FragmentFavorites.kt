@@ -43,11 +43,9 @@ class FragmentFavorites : Fragment(), OnPokemonSelectedListener,
 
     private fun setObservers() {
         favoritesViewModel.favoritePokemonCollection.observe(viewLifecycleOwner) {
-            Log.d("TAG", "updateData1: $it")
             updateData()
         }
         favoritesViewModel.areFavoritesLoaded.observe(viewLifecycleOwner) {
-            Log.d("TAG", "updateData2: $it")
             updateData()
         }
     }
@@ -77,7 +75,6 @@ class FragmentFavorites : Fragment(), OnPokemonSelectedListener,
     }
 
     private fun updateData() {
-        Log.d("TAG", "updateData: ${favoritesViewModel.favoritePokemonCollection.value}")
         if (!favoritesViewModel.favoritePokemonCollection.value.isNullOrEmpty())
             pokemonAdapter.setPokemons(
                 favoritesViewModel.favoritePokemonCollection.value!!
@@ -86,11 +83,10 @@ class FragmentFavorites : Fragment(), OnPokemonSelectedListener,
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        Log.d(TAG, "setUserVisibleHint: POSTAO SAM VISIBLE")
         super.setUserVisibleHint(isVisibleToUser)
         if(userVisibleHint){
             favoritesViewModel.getFavorites()
-            favoritesViewModel.loadFavorites()
+            //favoritesViewModel.loadFavorites()
         }
     }
     override fun onToggleFavoriteClick(favoriteId: Int) {

@@ -46,7 +46,6 @@ class FavoritesViewModel(
     fun loadFavorites(){
         viewModelScope.launch(Dispatchers.IO){
             firestoreRepository.getUserFavorites {
-                Log.d(TAG, "JEBEMTIMAMUUPIČKU: $it")
                 prefsManager.saveFavorites(it)
                 _areFavoritesLoaded.postValue(true)
             }
