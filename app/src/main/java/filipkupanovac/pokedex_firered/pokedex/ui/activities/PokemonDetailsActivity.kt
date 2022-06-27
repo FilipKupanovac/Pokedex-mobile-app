@@ -47,7 +47,7 @@ class PokemonDetailsActivity : AppCompatActivity() {
         binding.namePokemonDetails.text =
             "${detailsViewModel.pokemon.value?.id} ${detailsViewModel.pokemon.value?.name?.replaceFirstChar { it.uppercase() }}"
 
-        //Set types
+        //Set types text view
         val stringBuilder: StringBuilder = java.lang.StringBuilder()
         detailsViewModel.pokemon.value?.types?.forEach { type ->
             stringBuilder.append(type.type.name.replaceFirstChar {
@@ -56,7 +56,13 @@ class PokemonDetailsActivity : AppCompatActivity() {
             stringBuilder.append(", ")
         }
         stringBuilder.deleteRange(stringBuilder.count() - 2, stringBuilder.count())
-        binding.descriptionPokemonDetails.text = "My Types are: $stringBuilder"
+        val typesCount = detailsViewModel.pokemon.value?.types?.size
+        if(typesCount==1){
+            binding.descriptionPokemonDetails.text = "This pokemon type is: $stringBuilder"
+        }
+        else{
+            binding.descriptionPokemonDetails.text = "This pokemon types are: $stringBuilder"
+        }
 
         //Set ImageView
         Glide.with(applicationContext)

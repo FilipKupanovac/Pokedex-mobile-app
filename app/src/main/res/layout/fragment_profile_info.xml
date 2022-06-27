@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.profileInfo.FragmentProfileInfo">
+    tools:context=".ui.profileInfo.FragmentProfileInfo"
+    android:background="@color/fragment_background"
+    >
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
@@ -12,14 +14,14 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-
+android:background="@color/toolbar_color"
         >
 
         <ImageButton
             android:id="@+id/image_button_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@color/toolbar_color"
             android:padding="8dp"
             android:src="@drawable/ic_baseline_arrow_back_24" />
 
@@ -50,6 +52,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/buttonTopMargin"
         android:text="@string/log_out"
+        android:backgroundTint="@color/edit_text_background"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/relative_layout"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />

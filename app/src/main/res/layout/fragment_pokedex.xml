@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#45BB31">
+    android:background="@color/fragment_background">
 
     <EditText
         android:id="@+id/pokedex_searchbar"
@@ -11,6 +11,8 @@
         android:layout_height="?attr/actionBarSize"
         android:hint="@string/search_hint"
         android:inputType="text"
+        android:paddingLeft="10dp"
+        android:textColor="#444444"
         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -18,7 +20,6 @@
         android:id="@+id/pokedex_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
-        />
+        android:layout_marginTop="?attr/actionBarSize" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

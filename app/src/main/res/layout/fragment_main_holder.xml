@@ -9,39 +9,25 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
-        >
+        android:background="@color/toolbar_color"
+        android:minHeight="?attr/actionBarSize">
+
         <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/username_placeholder_main_holder_fragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginEnd="@dimen/toolbar_title_right_margin"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:text="User Profile"
-            android:textSize="16sp" />
-    </androidx.appcompat.widget.Toolbar>
+            <TextView
+                android:id="@+id/username_placeholder_main_holder_fragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/toolbar_title_right_margin"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="User Profile"
+                android:textSize="16sp" />
+        </androidx.appcompat.widget.Toolbar>
     </RelativeLayout>
-    <!--<androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/username_placeholder_main_holder_fragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginEnd="@dimen/toolbar_title_right_margin"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:text="User Profile"
-            android:textSize="16sp" />
-    </androidx.appcompat.widget.Toolbar>-->
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -53,18 +39,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@color/white"
-            android:minHeight="?actionBarSize" />
+            android:background="@color/toolbar_color"
+            android:minHeight="?actionBarSize"
+            app:tabIndicatorColor="@color/white"
+            app:tabTextColor="@color/white" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
         android:layout_marginTop="?actionBarSize"
         android:layout_marginBottom="?actionBarSize"
-        />
+        tools:layout_editor_absoluteX="0dp" />
 
 
 </RelativeLayout>

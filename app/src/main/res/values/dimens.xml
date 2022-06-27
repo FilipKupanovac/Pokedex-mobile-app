@@ -10,4 +10,6 @@
     <dimen name="username_top_margin">160dp</dimen>
     <dimen name="toolbar_title_size">25sp</dimen>
     <dimen name="toolbar_title_right_margin">20dp</dimen>
+    <dimen name="border_radius">15dp</dimen>
+    <dimen name="hint_padding">10dp</dimen>
 </resources>

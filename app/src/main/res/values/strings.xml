@@ -8,10 +8,9 @@
     <string name="register">Register</string>
     <string name="hint_username">pick your username</string>
     <string name="username">Username</string>
-    <string name="navigate_to_sign_in">Already a trainer? Sign in</string>
-    <string name="navigate_to_register">New trainer? Register</string>
+    <string name="navigate_to_sign_in">Already a trainer? <u>Sign in</u></string>
+    <string name="navigate_to_register">New trainer? <u>Register</u></string>
     <string name="pokedexFragmentPlaceholder">Tu će ići pokedex recycler view</string>
-    <string name="favoritesFragmentPlaceholder">Ovdje će ići Favoriti RecyclerView</string>
     <string name="username_placeholder">USERNAME</string>
     <string name="delete_profile"><u>Delete profile</u></string>
     <string name="log_out">Log out</string>
