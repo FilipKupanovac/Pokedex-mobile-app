@@ -1,6 +1,5 @@
 package filipkupanovac.pokedex_firered.pokedex.ui.userAuth
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -33,15 +32,13 @@ class SignInViewModel(
             _isUserSignedIn.postValue(currentUser != null)
             if (currentUser != null) {
                 currentUser.displayName?.let { prefsManager.saveUser(it) }
-                currentUser.email?.let {prefsManager.saveUserEmail(it)}
+                currentUser.email?.let { prefsManager.saveUserEmail(it) }
             }
-            firestoreRepository.getUserFavorites{
+            firestoreRepository.getUserFavorites {
                 prefsManager.saveFavorites(it)
             }
         }
     }
-
-    private val TAG = "SignInViewModel"
 
     fun isUserSignedIn(): Boolean = prefsManager.getUser() != EMPTY_STRING
 }

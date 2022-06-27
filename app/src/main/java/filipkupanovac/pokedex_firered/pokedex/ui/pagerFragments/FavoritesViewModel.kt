@@ -1,15 +1,14 @@
 package filipkupanovac.pokedex_firered.pokedex.ui.pagerFragments
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import filipkupanovac.pokedex_firered.pokedex.data.RetrofitInstance
+import filipkupanovac.pokedex_firered.pokedex.data.PokeAPIInstance
 import filipkupanovac.pokedex_firered.pokedex.data.SharedPreferenceManager
 import filipkupanovac.pokedex_firered.pokedex.helpers.parseFavoritesToListInt
 import filipkupanovac.pokedex_firered.pokedex.repositories.FirestoreRepository
-import filipkupanovac.pokedex_firered.pokedex.ui.model.PokeObject
+import filipkupanovac.pokedex_firered.pokedex.model.PokeObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -28,7 +27,7 @@ class FavoritesViewModel(
     fun getFavorites() {
         viewModelScope.launch(Dispatchers.IO) {
             val response =
-                RetrofitInstance.api.getPokemon(151, 0)
+                PokeAPIInstance.api.getPokemon(151, 0)
 
             if (response.isSuccessful && response.body() != null) {
                 val favoritesList: MutableList<PokeObject> = mutableListOf()
@@ -51,7 +50,4 @@ class FavoritesViewModel(
         }
     }
 
-    companion object {
-        val TAG = "FavoritesViewModel"
-    }
 }

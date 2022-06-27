@@ -1,12 +1,10 @@
 package filipkupanovac.pokedex_firered.pokedex.data
 
 import android.content.Context
-import android.util.Log
 import filipkupanovac.pokedex_firered.pokedex.PokedexApp
 import filipkupanovac.pokedex_firered.pokedex.helpers.parseFavoritesListToString
-import java.lang.StringBuilder
 
-class SharedPreferenceManager() {
+class SharedPreferenceManager {
     private val sharedPrefs =
         PokedexApp.application.getSharedPreferences("POKEDEX_SHARED_PREFS", Context.MODE_PRIVATE)
     private val editor = sharedPrefs.edit()
@@ -57,15 +55,6 @@ class SharedPreferenceManager() {
         return sharedPrefs.getString(FAVORITE, EMPTY_STRING).toString()
     }
 
-    private fun toggleFavorite(id: Int, favorites: MutableList<Int>) {
-        if (favorites.contains(id)) {
-            favorites.remove(id)
-        } else {
-            favorites.add(id)
-            favorites.sort()
-        }
-    }
-
     fun saveUserEmail(email: String) {
         editor.putString(EMAIL, email)
         editor.apply()
@@ -75,9 +64,6 @@ class SharedPreferenceManager() {
         return sharedPrefs.getString(EMAIL, EMPTY_STRING).toString()
     }
 
-    companion object {
-        private const val TAG = "TA-A-A-A-A-A-AG"
-    }
 }
 
 const val USER_ID = "userId"

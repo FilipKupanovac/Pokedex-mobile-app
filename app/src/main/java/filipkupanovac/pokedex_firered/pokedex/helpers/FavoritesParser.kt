@@ -12,6 +12,8 @@ fun parseFavoritesToListInt(favoritesString: String): List<Int> {
 }
 
 fun parseFavoritesListToString(favoritesList: List<Int>): String {
+    if(favoritesList.isEmpty())
+        return ""
     val stringBuilder: StringBuilder = java.lang.StringBuilder()
     favoritesList.forEach { favorite ->
         stringBuilder.append(favorite.toString()).append(",")

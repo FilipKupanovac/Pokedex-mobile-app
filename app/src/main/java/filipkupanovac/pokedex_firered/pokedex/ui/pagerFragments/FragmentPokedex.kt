@@ -78,7 +78,7 @@ class FragmentPokedex : Fragment(), OnPokemonSelectedListener,
         binding.pokedexRecyclerView.adapter = pokemonAdapter
     }
 
-    override fun OnPokemonSelected(id: Int) {
+    override fun onPokemonSelected(id: Int) {
         val pokemonUriArray: List<String> = if (binding.pokedexSearchbar.text.isNotBlank()
             && binding.pokedexSearchbar.text.isNotEmpty()
         ) {
@@ -118,10 +118,6 @@ class FragmentPokedex : Fragment(), OnPokemonSelectedListener,
                 pokemonAdapter.setPokemons(pokedexViewModel.pokemonCollection.value!!)
             }
         }
-    }
-
-    companion object {
-        const val TAG = "FragmentPokedex"
     }
 
     override fun onToggleFavoriteClick(favoriteId: Int) {

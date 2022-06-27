@@ -72,7 +72,4 @@ class FirestoreRepository(
         firestore.collection("userFavorites").add(userFavorites)
     }
 
-    companion object {
-        private const val TAG = "FirestoreRepository"
-    }
 }

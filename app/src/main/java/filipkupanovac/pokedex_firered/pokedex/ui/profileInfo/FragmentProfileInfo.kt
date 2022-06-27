@@ -1,7 +1,6 @@
 package filipkupanovac.pokedex_firered.pokedex.ui.profileInfo
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import filipkupanovac.pokedex_firered.pokedex.databinding.FragmentProfileInfoBinding
-import filipkupanovac.pokedex_firered.pokedex.di.prefsModule
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -24,7 +22,7 @@ class FragmentProfileInfo : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentProfileInfoBinding.inflate(
             inflater, container, false
         )
@@ -37,10 +35,6 @@ class FragmentProfileInfo : Fragment() {
 
     private fun setContent() {
         binding.textViewUsernameInfo.text = profileInfoViewModel.getUsername()
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 
     private fun setClickListeners() {

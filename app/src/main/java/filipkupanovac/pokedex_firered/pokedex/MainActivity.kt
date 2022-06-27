@@ -2,8 +2,6 @@ package filipkupanovac.pokedex_firered.pokedex
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import filipkupanovac.pokedex_firered.pokedex.R
 
 class MainActivity : AppCompatActivity() {
 

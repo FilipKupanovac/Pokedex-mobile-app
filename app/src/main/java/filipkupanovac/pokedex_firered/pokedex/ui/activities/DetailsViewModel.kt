@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import filipkupanovac.pokedex_firered.pokedex.data.RetrofitInstance
+import filipkupanovac.pokedex_firered.pokedex.data.PokeAPIInstance
 import filipkupanovac.pokedex_firered.pokedex.data.SharedPreferenceManager
 import filipkupanovac.pokedex_firered.pokedex.helpers.parseFavoritesToListInt
 import filipkupanovac.pokedex_firered.pokedex.repositories.FirestoreRepository
-import filipkupanovac.pokedex_firered.pokedex.ui.model.Pokemon
+import filipkupanovac.pokedex_firered.pokedex.model.Pokemon
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -24,7 +24,7 @@ class DetailsViewModel(
     fun getSpecificPokemon(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val response =
-                RetrofitInstance.api.getPokemonWithId(id)
+                PokeAPIInstance.api.getPokemonWithId(id)
 
             if (response.isSuccessful && response.body() != null) {
                 _pokemon.postValue(response.body())
@@ -39,7 +39,7 @@ class DetailsViewModel(
         }
     }
 
-    fun isFavorite(pokemonId: Int) : Boolean{
-            return parseFavoritesToListInt(prefsManager.getFavorites()).contains(pokemonId)
+    fun isFavorite(pokemonId: Int): Boolean {
+        return parseFavoritesToListInt(prefsManager.getFavorites()).contains(pokemonId)
     }
 }

@@ -1,7 +1,5 @@
 package filipkupanovac.pokedex_firered.pokedex.repositories
 
-import android.os.Looper
-import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -10,7 +8,6 @@ import filipkupanovac.pokedex_firered.pokedex.PokedexApp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
-import kotlin.coroutines.coroutineContext
 
 class FirebaseAuthRepository(private val firebaseAuth: FirebaseAuth) {
 
@@ -24,8 +21,6 @@ class FirebaseAuthRepository(private val firebaseAuth: FirebaseAuth) {
 
                 }.await()
         } catch (e: Exception) {
-            //Toast.makeText(PokedexApp.application, e.message.toString(), Toast.LENGTH_LONG).show()
-            Log.d("FIREBASE AUTH REPO", "authenticateUser: ${e.message.toString()}")
         }
         return currentUser
     }
@@ -62,7 +57,7 @@ class FirebaseAuthRepository(private val firebaseAuth: FirebaseAuth) {
         firebaseUser?.updateProfile(profileUpdates)
     }
 
-    fun getCurrentUser(): FirebaseUser? {
+    private fun getCurrentUser(): FirebaseUser? {
         return firebaseAuth.currentUser
     }
 

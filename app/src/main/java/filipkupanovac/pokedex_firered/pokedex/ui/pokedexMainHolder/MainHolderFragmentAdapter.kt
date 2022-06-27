@@ -14,11 +14,11 @@ class MainHolderFragmentAdapter(private val context: Context, fragmentManager: F
         return 2
     }
 
-    override fun getPageTitle(position: Int): CharSequence? {
+    override fun getPageTitle(position: Int): CharSequence {
         return when (position) {
             0 -> "Pokedex"
             1 -> "Favorites"
-            else -> "Ništa to bato"
+            else -> "error"
         }
     }
 

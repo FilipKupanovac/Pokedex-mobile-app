@@ -1,4 +1,4 @@
-package filipkupanovac.pokedex_firered.pokedex.ui.model
+package filipkupanovac.pokedex_firered.pokedex.model
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable

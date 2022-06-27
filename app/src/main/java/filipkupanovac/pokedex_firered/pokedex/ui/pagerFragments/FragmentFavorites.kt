@@ -2,7 +2,6 @@ package filipkupanovac.pokedex_firered.pokedex.ui.pagerFragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,7 +26,7 @@ class FragmentFavorites : Fragment(), OnPokemonSelectedListener,
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentFavoritesBinding.inflate(
             inflater, container, false
         )
@@ -59,7 +58,7 @@ class FragmentFavorites : Fragment(), OnPokemonSelectedListener,
         binding.favoritesRecyclerView.adapter = pokemonAdapter
     }
 
-    override fun OnPokemonSelected(id: Int) {
+    override fun onPokemonSelected(id: Int) {
         val intent = Intent(activity, PokemonDetailsActivity::class.java).apply {
             putExtra("pokemon", favoritesViewModel.favoritePokemonCollection.value?.get(id))
         }
@@ -84,13 +83,13 @@ class FragmentFavorites : Fragment(), OnPokemonSelectedListener,
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
-        if(userVisibleHint){
+        if (userVisibleHint) {
             favoritesViewModel.getFavorites()
             //favoritesViewModel.loadFavorites()
         }
     }
+
     override fun onToggleFavoriteClick(favoriteId: Int) {
 
     }
-    private val TAG = "FragmentFavorites"
 }

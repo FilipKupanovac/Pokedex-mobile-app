@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import filipkupanovac.pokedex_firered.pokedex.data.RetrofitInstance
+import filipkupanovac.pokedex_firered.pokedex.data.PokeAPIInstance
 import filipkupanovac.pokedex_firered.pokedex.data.SharedPreferenceManager
 import filipkupanovac.pokedex_firered.pokedex.helpers.parseFavoritesToListInt
 import filipkupanovac.pokedex_firered.pokedex.repositories.FirestoreRepository
-import filipkupanovac.pokedex_firered.pokedex.ui.model.PokeObject
+import filipkupanovac.pokedex_firered.pokedex.model.PokeObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -31,7 +31,7 @@ class PokedexViewModel(
     fun getPokemon(count: Int, offset: Int = 0) {
         viewModelScope.launch(Dispatchers.IO) {
             val response =
-                RetrofitInstance.api.getPokemon(count, offset)
+                PokeAPIInstance.api.getPokemon(count, offset)
 
             if (response.isSuccessful && response.body() != null) {
                 _pokemonCollection.postValue(response.body()!!.pokeList)
@@ -71,7 +71,4 @@ class PokedexViewModel(
         }
     }
 
-    companion object {
-        val TAG = "PokedexViewModel"
-    }
 }

@@ -1,7 +1,7 @@
 package filipkupanovac.pokedex_firered.pokedex.data
 
-import filipkupanovac.pokedex_firered.pokedex.ui.model.Pokemon
-import filipkupanovac.pokedex_firered.pokedex.ui.model.PokemonCollection
+import filipkupanovac.pokedex_firered.pokedex.model.Pokemon
+import filipkupanovac.pokedex_firered.pokedex.model.PokemonCollection
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

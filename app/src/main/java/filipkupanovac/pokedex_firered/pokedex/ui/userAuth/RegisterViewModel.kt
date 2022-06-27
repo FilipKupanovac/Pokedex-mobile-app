@@ -1,8 +1,5 @@
 package filipkupanovac.pokedex_firered.pokedex.ui.userAuth
 
-import android.os.Looper
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,7 +9,6 @@ import filipkupanovac.pokedex_firered.pokedex.repositories.FirebaseAuthRepositor
 import filipkupanovac.pokedex_firered.pokedex.repositories.FirestoreRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlin.coroutines.coroutineContext
 
 class RegisterViewModel(
     private val firebaseAuthRepository: FirebaseAuthRepository,
@@ -38,6 +34,4 @@ class RegisterViewModel(
             prefsManager.saveUserEmail(email)
         }
     }
-
-    private val TAG = "RegisterViewModel"
 }

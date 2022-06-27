@@ -1,6 +1,5 @@
 package filipkupanovac.pokedex_firered.pokedex.ui.recycler_items
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,7 @@ import filipkupanovac.pokedex_firered.pokedex.R
 import filipkupanovac.pokedex_firered.pokedex.data.SharedPreferenceManager
 import filipkupanovac.pokedex_firered.pokedex.databinding.ItemPokemonBinding
 import filipkupanovac.pokedex_firered.pokedex.helpers.parseFavoritesToListInt
-import filipkupanovac.pokedex_firered.pokedex.ui.model.PokeObject
+import filipkupanovac.pokedex_firered.pokedex.model.PokeObject
 
 class PokemonAdapter(
     private val onToggleFavoriteClickListener: OnToggleFavoriteClickListener,
@@ -19,7 +18,7 @@ class PokemonAdapter(
     RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() {
 
 
-    val pokémons = mutableListOf<PokeObject>()
+    private val pokemons = mutableListOf<PokeObject>()
     var pokemonSelectedListener: OnPokemonSelectedListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonViewHolder {
@@ -30,25 +29,25 @@ class PokemonAdapter(
     }
 
     override fun onBindViewHolder(holder: PokemonViewHolder, position: Int) {
-        val pokemon = pokémons[position]
+        val pokemon = pokemons[position]
         holder.bind(pokemon)
         holder.itemView.setOnClickListener {
-            pokemonSelectedListener?.OnPokemonSelected(position)
+            pokemonSelectedListener?.onPokemonSelected(position)
         }
     }
 
-    override fun getItemCount(): Int = pokémons.count()
+    override fun getItemCount(): Int = pokemons.count()
 
-    fun setPokemons(pokemons: List<PokeObject>) {
-        this.pokémons.clear()
-        this.pokémons.addAll(pokemons)
+    fun setPokemons(pokemonList: List<PokeObject>) {
+        this.pokemons.clear()
+        this.pokemons.addAll(pokemonList)
         this.notifyDataSetChanged()
     }
 
 
     inner class PokemonViewHolder(itemView: View, private val isInFavorites: Boolean) :
         RecyclerView.ViewHolder(itemView) {
-        val sharedPrefs = SharedPreferenceManager()
+        private val sharedPrefs = SharedPreferenceManager()
         private val binding = ItemPokemonBinding.bind(itemView)
         fun bind(pokemon: PokeObject) {
             binding.pokemonNameTextView.text = pokemon.name.replaceFirstChar { it.uppercase() }
@@ -60,7 +59,7 @@ class PokemonAdapter(
 
         }
 
-        fun handleFavoritesStar(pokemonId: Int) {
+        private fun handleFavoritesStar(pokemonId: Int) {
             if (isInFavorites) {
                 binding.recyclerItemFavoriteStar.visibility = View.GONE
             } else {
