@@ -16,12 +16,6 @@ data class Pokemon(
     @SerializedName("id") var id: Int,
     @SerializedName("name") var name: String,
     @SerializedName("types") var types: List<TypeContainer>,
-    @SerializedName("species") var species: Species,
-) : Serializable
-
-data class Species(
-    @SerializedName("name") var name: String,
-    @SerializedName("url") var url: String
 ) : Serializable
 
 data class Type(

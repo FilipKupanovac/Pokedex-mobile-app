@@ -22,7 +22,7 @@ class PokemonDetailsActivity : AppCompatActivity() {
 
         getExtra()
         binding = ActivityPokemonDetailsBinding.inflate(layoutInflater)
-        detailsViewModel.getSpecificPokemon(id)
+        detailsViewModel.getPokemon(id)
         setObservers()
         setOnClickListeners()
 

@@ -21,7 +21,7 @@ class DetailsViewModel(
     val pokemon: LiveData<Pokemon>
         get() = _pokemon
 
-    fun getSpecificPokemon(id: Int) {
+    fun getPokemon(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val response =
                 PokeAPIInstance.api.getPokemonWithId(id)
