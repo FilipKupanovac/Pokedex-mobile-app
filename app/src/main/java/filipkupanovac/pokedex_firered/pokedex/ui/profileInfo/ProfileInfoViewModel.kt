@@ -6,8 +6,7 @@ import filipkupanovac.pokedex_firered.pokedex.data.SharedPreferenceManager
 import filipkupanovac.pokedex_firered.pokedex.repositories.FirestoreRepository
 
 class ProfileInfoViewModel(
-    private val prefsManager: SharedPreferenceManager,
-    private val firestoreRepository: FirestoreRepository
+    private val prefsManager: SharedPreferenceManager
 ) : ViewModel() {
 
     fun getUsername(): String {
@@ -20,5 +19,4 @@ class ProfileInfoViewModel(
         prefsManager.saveFavorites(EMPTY_STRING)
     }
 
-    //TODO() ako bude vremena obrisi usera
 }

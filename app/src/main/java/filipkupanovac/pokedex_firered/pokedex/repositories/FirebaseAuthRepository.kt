@@ -61,15 +61,4 @@ class FirebaseAuthRepository(private val firebaseAuth: FirebaseAuth) {
         return firebaseAuth.currentUser
     }
 
-    fun signOut() {
-        firebaseAuth.signOut()
-    }
-
-    fun deleteUser() {
-        firebaseAuth.currentUser?.delete()?.addOnCompleteListener { it ->
-            if (it.isSuccessful) {
-                Toast.makeText(PokedexApp.application, "Deleted account", Toast.LENGTH_SHORT)
-            }
-        }
-    }
 }

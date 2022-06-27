@@ -58,10 +58,10 @@ class PokemonDetailsActivity : AppCompatActivity() {
         stringBuilder.deleteRange(stringBuilder.count() - 2, stringBuilder.count())
         val typesCount = detailsViewModel.pokemon.value?.types?.size
         if(typesCount==1){
-            binding.descriptionPokemonDetails.text = "This pokemon type is: $stringBuilder"
+            binding.descriptionPokemonDetails.text = "This pokemon's type is: $stringBuilder"
         }
         else{
-            binding.descriptionPokemonDetails.text = "This pokemon types are: $stringBuilder"
+            binding.descriptionPokemonDetails.text = "This pokemon's types are: $stringBuilder"
         }
 
         //Set ImageView

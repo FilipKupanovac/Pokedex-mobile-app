@@ -27,5 +27,5 @@ val viewModelModule = module {
     viewModel { PokedexViewModel(get(), get()) }
     viewModel { FavoritesViewModel(get(), get()) }
     viewModel { DetailsViewModel(get(), get()) }
-    viewModel { ProfileInfoViewModel(get(), get()) }
+    viewModel { ProfileInfoViewModel(get()) }
 }

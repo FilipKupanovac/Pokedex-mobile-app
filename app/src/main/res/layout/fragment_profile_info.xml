@@ -4,18 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.profileInfo.FragmentProfileInfo"
     android:background="@color/fragment_background"
-    >
+    tools:context=".ui.profileInfo.FragmentProfileInfo">
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/toolbar_color"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-android:background="@color/toolbar_color"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
             android:id="@+id/image_button_back"
@@ -41,7 +39,7 @@ android:background="@color/toolbar_color"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/username_top_margin"
         android:text="@string/username_placeholder"
-        android:textSize="30sp"
+        android:textSize="40sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -50,36 +48,12 @@ android:background="@color/toolbar_color"
         android:id="@+id/log_out_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/buttonTopMargin"
-        android:text="@string/log_out"
+        android:layout_marginBottom="100dp"
         android:backgroundTint="@color/edit_text_background"
+        android:text="@string/log_out"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/relative_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
-    <RelativeLayout
-        android:id="@+id/relative_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/bottomMargin"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
-
-        <TextView
-            android:id="@+id/text_view_question"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Don't want to be a trainer anymore?" />
-
-        <TextView
-            android:id="@+id/text_view_deletion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/text_view_question"
-            android:text="@string/delete_profile"
-            android:textColor="#3388CC" />
-    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

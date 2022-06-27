@@ -42,10 +42,6 @@ class FragmentProfileInfo : Fragment() {
             logOut()
         }
 
-        binding.textViewDeletion.setOnClickListener {
-            deleteAccount()
-        }
-
         binding.imageButtonBack.setOnClickListener {
             navigateToMainHolder()
         }
@@ -56,10 +52,6 @@ class FragmentProfileInfo : Fragment() {
         val action =
             FragmentProfileInfoDirections.actionFragmentProfileInfoToFragmentMainHolder(args.activeFragmentPositionOnCall)
         findNavController().navigate(action)
-    }
-
-    private fun deleteAccount() {
-        logOut("DELETED ACCOUNT")
     }
 
     private fun logOut(message: CharSequence = "LOGGED OUT") {
